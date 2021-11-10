@@ -20,6 +20,10 @@ body {
   display: flex;
 }
 
+.flex-column {
+  flex-direction: column;
+}
+
 .justify-center {
   justify-content: center;
 }

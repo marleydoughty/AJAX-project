@@ -72,3 +72,9 @@ img {
 .bottom-nav a {
   text-decoration: none;
 }
+
+#save-button {
+  border: none;
+  color: blue;
+  text-align: end;
+}
