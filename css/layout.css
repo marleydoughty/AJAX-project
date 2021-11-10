@@ -1,0 +1,29 @@
+.hidden {
+  display: none !important;
+}
+
+body {
+  font-family: 'Lancelot', cursive;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 0.5rem;
+}
+
+.row {
+  display: flex;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 900px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  a {
+    display: none;
+  }
+}
