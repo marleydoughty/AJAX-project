@@ -6,14 +6,45 @@
   <title>AJAX Project</title>
   <link rel="icon" href="images/favicon.ico">
   <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lancelot&family=Proza+Libre:wght@400;600&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    crossorigin="anonymous"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==">
+
 </head>
 <body>
-  <header>
-  </header>
-  <main>
-  </main>
+  <div class="page-header">
+    <header class="row">
+      <div class="column-half">
+        <h2>Thinking About Cats...</h2>
+      </div>
+      <div class="column-half">
+        <div class="row">
+          <i class="fas fa-camera header-nav"></i>
+          <nav class="tabs"><a href="#" data-link="images" class="icon header-nav">Images</a></nav>
+        </div>
+      </div>
+    </header>
+  </div>
+    <div class="bottom-nav">
+      <div class="row justify-center">
+        <div class="column-full margin-bottom">
+          <i class="fas fa-camera"></i>
+          <nav class="tabs"><a href="#" data-link="images">Images</a></nav>
+        </div>
+      </div>
+    </div>
+  <div class="container">
+    <main>
+      <div class="images"></div>
+    </main>
+  </div>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
