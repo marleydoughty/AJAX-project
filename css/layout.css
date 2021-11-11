@@ -29,9 +29,9 @@ body {
   align-items: center;
 }
 
-.flex-wrap {
+/* .flex-wrap {
   flex-wrap: wrap;
-}
+} */
 
 .flex-column {
   flex-direction: column;
@@ -45,9 +45,9 @@ body {
   margin-bottom: 10px;
 }
 
-.width {
+/* .width {
   width: 300px;
-}
+} */
 
 .m-10 {
   margin: 10px;

@@ -77,7 +77,6 @@ img {
 .save-button {
   border: none;
   color: #177cff;
-  text-align: end;
   padding-left: 240px;
 }
 
@@ -92,4 +91,9 @@ img {
 
 .comment-box {
   width: 275px;
+}
+
+.image-container {
+  flex-wrap: wrap;
+  width: 300px;
 }

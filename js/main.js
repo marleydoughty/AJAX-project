@@ -7,7 +7,7 @@ function getData(image) {
   xhr.addEventListener('load', function () {
     for (var i = 0; i < 9; i++) {
       var imageContainer = document.createElement('div');
-      imageContainer.className = 'row flex-wrap width';
+      imageContainer.className = 'row image-container';
       $images.appendChild(imageContainer);
 
       // var columnFull = document.createElement('div');
@@ -24,7 +24,7 @@ function getData(image) {
       imageContainer.appendChild(commentSection);
 
       var columnHalf = document.createElement('div');
-      columnHalf.className = 'column-half';
+      columnHalf.className = 'comment-form column-half';
       commentSection.appendChild(columnHalf);
 
       var commentOutput = document.createElement('p');
@@ -58,3 +58,19 @@ function getData(image) {
 }
 
 getData();
+
+var $allImages = document.querySelector('.images');
+
+function clickedCommentIcon(event) {
+  // console.log('it clicked:', event);
+  // console.log('event.target:', event.target);
+  // console.log('event.target.tagName:', event.target.tagName);
+  if (event.target && event.target.tagName === 'FAR') {
+    // var commentForm = event.target.closest('.comment-form');
+
+    // commentForm.className = 'comment-form';
+  }
+  // console.log('closest comment-form:', commentForm);
+}
+
+$allImages.addEventListener('click', clickedCommentIcon);
