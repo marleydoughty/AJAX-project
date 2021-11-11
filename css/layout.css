@@ -2,6 +2,10 @@
   display: none !important;
 }
 
+.not-visible {
+  visibility: hidden;
+}
+
 body {
   display: flex;
   flex-direction: column;

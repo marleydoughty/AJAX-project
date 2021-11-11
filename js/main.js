@@ -1,6 +1,7 @@
-var $images = document.querySelector('.images');
+var $allImages = document.querySelector('.images');
+// var $formInputs = document.querySelector('#form-inputs');
 
-function getData(image) {
+function renderData(images) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.thecatapi.com/v1/images/search?limit=100&page=0');
   xhr.responseType = 'json';
@@ -8,11 +9,7 @@ function getData(image) {
     for (var i = 0; i < 9; i++) {
       var imageContainer = document.createElement('div');
       imageContainer.className = 'row image-container';
-      $images.appendChild(imageContainer);
-
-      // var columnFull = document.createElement('div');
-      // columnFull.className = 'column-full';
-      // imageContainer.appendChild(columnFull);
+      $allImages.appendChild(imageContainer);
 
       var image = document.createElement('img');
       image.setAttribute('src', xhr.response[i].url);
@@ -24,25 +21,26 @@ function getData(image) {
       imageContainer.appendChild(commentSection);
 
       var columnHalf = document.createElement('div');
-      columnHalf.className = 'comment-form column-half';
+      columnHalf.className = 'comment-form not-visible column-half';
       commentSection.appendChild(columnHalf);
 
       var commentOutput = document.createElement('p');
       columnHalf.appendChild(commentOutput);
 
       var form = document.createElement('form');
+      form.setAttribute('id', 'form-input');
       columnHalf.appendChild(form);
 
       var commentInput = document.createElement('input');
       commentInput.setAttribute('type', 'text');
       commentInput.setAttribute('placeholder', 'Add comments here');
-      commentInput.className = 'comment-box';
+      commentInput.setAttribute('id', 'comment-box');
       form.appendChild(commentInput);
 
       var saveComment = document.createElement('input');
       saveComment.setAttribute('type', 'submit');
       saveComment.setAttribute('value', 'Save');
-      saveComment.className = 'save-button';
+      saveComment.setAttribute('id', 'save-button');
       form.appendChild(saveComment);
 
       var commentIconContainer = document.createElement('div');
@@ -57,20 +55,27 @@ function getData(image) {
   xhr.send();
 }
 
-getData();
+renderData();
 
-var $allImages = document.querySelector('.images');
+// function handleDomContent(event) {
+
+// }
 
 function clickedCommentIcon(event) {
-  // console.log('it clicked:', event);
-  // console.log('event.target:', event.target);
-  // console.log('event.target.tagName:', event.target.tagName);
-  if (event.target && event.target.tagName === 'FAR') {
-    // var commentForm = event.target.closest('.comment-form');
-
-    // commentForm.className = 'comment-form';
+  if (event.target && event.target.tagName === 'I') {
+    var closestCommentForm = event.target.parentElement.parentElement.querySelector('.comment-form');
+    closestCommentForm.className = 'comment-form';
   }
-  // console.log('closest comment-form:', commentForm);
 }
-
 $allImages.addEventListener('click', clickedCommentIcon);
+
+// function handleSaveComment(event) {
+//   event.preventDefault();
+//   // var commentData = {
+//   //   comment: $formInputs.elements['comment-box'].value,
+//   //   imageId: data.imageId
+//   // };
+//   // data.imageId++;
+//   // data.comments.unshift(commentData);
+// }
+// $formInputs.addEventListener('submit', handleSaveComment);

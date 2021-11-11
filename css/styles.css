@@ -74,7 +74,7 @@ img {
   color: white;
 }
 
-.save-button {
+#save-button {
   border: none;
   color: #177cff;
   padding-left: 240px;
@@ -89,7 +89,7 @@ img {
   padding-left: 7px;
 }
 
-.comment-box {
+#comment-box {
   width: 275px;
 }
 
