@@ -41,7 +41,7 @@ img {
   width: 300px;
   height: 200px;
   object-fit: cover;
-  margin-bottom: 59px;
+  margin-bottom: 10px;
   border-radius: 3px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgb(0 0 0 / 40%);
@@ -71,9 +71,10 @@ img {
 
 .bottom-nav a {
   text-decoration: none;
+  color: white;
 }
 
-#save-button {
+.save-button {
   border: none;
   color: blue;
   text-align: end;
