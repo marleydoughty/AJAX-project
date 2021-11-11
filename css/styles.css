@@ -76,6 +76,20 @@ img {
 
 .save-button {
   border: none;
-  color: blue;
+  color: #177cff;
   text-align: end;
+  padding-left: 240px;
+}
+
+.comment-section {
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.comment-icon {
+  padding-left: 7px;
+}
+
+.comment-box {
+  width: 275px;
 }

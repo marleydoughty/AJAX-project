@@ -20,7 +20,7 @@ function getData(image) {
       imageContainer.appendChild(image);
 
       var commentSection = document.createElement('div');
-      commentSection.className = 'row comment-section align-center';
+      commentSection.className = 'row comment-section';
       imageContainer.appendChild(commentSection);
 
       var columnHalf = document.createElement('div');
@@ -50,7 +50,7 @@ function getData(image) {
       commentSection.appendChild(commentIconContainer);
 
       var commentIcon = document.createElement('i');
-      commentIcon.className = 'fas fa-comment';
+      commentIcon.className = 'far fa-comment';
       commentIconContainer.appendChild(commentIcon);
     }
   });
