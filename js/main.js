@@ -48,7 +48,6 @@ function renderImages() {
     var columnHalf = document.createElement('div');
     if (imageValues[i].editing === true) {
       columnHalf.className = 'comment-form';
-
     } else {
       columnHalf.className = 'comment-form hidden column-half';
     }
