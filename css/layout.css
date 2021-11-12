@@ -2,10 +2,6 @@
   display: none !important;
 }
 
-.not-visible {
-  visibility: hidden;
-}
-
 body {
   display: flex;
   flex-direction: column;
@@ -24,18 +20,9 @@ body {
   display: flex;
 }
 
-.column-full,
-.column-half {
-  width: 100%;
-}
-
 .align-center {
   align-items: center;
 }
-
-/* .flex-wrap {
-  flex-wrap: wrap;
-} */
 
 .flex-column {
   flex-direction: column;
@@ -45,13 +32,17 @@ body {
   justify-content: center;
 }
 
+.end {
+  justify-content: end;
+}
+
+.sb {
+  justify-content: space-between;
+}
+
 .mb-10 {
   margin-bottom: 10px;
 }
-
-/* .width {
-  width: 300px;
-} */
 
 .m-10 {
   margin: 10px;

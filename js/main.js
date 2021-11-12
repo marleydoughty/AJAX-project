@@ -19,7 +19,7 @@ function renderImages() {
 
   for (var i = 0; i < 9; i++) {
     var imageContainer = document.createElement('div');
-    imageContainer.className = 'row image-container';
+    imageContainer.className = 'row image-container end';
     imageContainer.setAttribute('data-id', imageValues[i].id);
     $allImages.appendChild(imageContainer);
 
@@ -37,6 +37,7 @@ function renderImages() {
     var commentOutput = document.createElement('p');
     if (commentObj) {
       commentOutput.textContent = commentObj.textValue;
+      imageContainer.className = 'row image-container sb';
     }
     imageContainer.appendChild(commentOutput);
 
@@ -47,8 +48,9 @@ function renderImages() {
     var columnHalf = document.createElement('div');
     if (imageValues[i].editing === true) {
       columnHalf.className = 'comment-form';
+
     } else {
-      columnHalf.className = 'comment-form not-visible column-half';
+      columnHalf.className = 'comment-form hidden column-half';
     }
     commentSection.appendChild(columnHalf);
 
@@ -81,8 +83,6 @@ function renderImages() {
 }
 fetchImages();
 
-// window.addEventListener('DOMContentLoaded', renderImages());
-
 function findImageIndex(target) {
   var closestImageContainer = target.closest('.image-container');
   for (var i = 0; i < $allImages.children.length; i++) {
@@ -100,8 +100,6 @@ function clickedCommentIcon(event) {
       imageValues[imageIndex].editing = true;
       renderImages();
     }
-    // var closestCommentForm = event.target.parentElement.parentElement.querySelector('.comment-form');
-    // closestCommentForm.className = 'comment-form';
   }
 }
 $allImages.addEventListener('click', clickedCommentIcon);
@@ -123,4 +121,3 @@ function handleSaveComment(event) {
   });
   renderImages();
 }
-// if value is found default value is value of the input//
