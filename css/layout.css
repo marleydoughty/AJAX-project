@@ -20,12 +20,32 @@ body {
   display: flex;
 }
 
-.justify-center {
+.align-center {
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.jc-center {
   justify-content: center;
 }
 
-.margin-bottom {
+.end {
+  justify-content: end;
+}
+
+.sb {
+  justify-content: space-between;
+}
+
+.mb-10 {
   margin-bottom: 10px;
+}
+
+.m-10 {
+  margin: 10px;
 }
 
 @media screen and (min-width: 768px) {

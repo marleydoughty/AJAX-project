@@ -41,7 +41,7 @@ img {
   width: 300px;
   height: 200px;
   object-fit: cover;
-  margin-bottom: 59px;
+  margin-bottom: 10px;
   border-radius: 3px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgb(0 0 0 / 40%);
@@ -71,4 +71,40 @@ img {
 
 .bottom-nav a {
   text-decoration: none;
+  color: white;
+}
+
+#save-button {
+  border: none;
+  color: #177cff;
+  padding-left: 240px;
+  cursor: pointer;
+}
+
+.comment-section {
+  margin-bottom: 12px;
+  align-items: center;
+}
+
+.comment-icon {
+  padding-left: 7px;
+  cursor: pointer;
+}
+
+.comment-icon:hover {
+  color: #177cff;
+}
+
+#comment-box {
+  width: 275px;
+  border-radius: 4px;
+}
+
+#comment-box:focus {
+  border-color: #177cff;
+}
+
+.image-container {
+  flex-wrap: wrap;
+  width: 300px;
 }
