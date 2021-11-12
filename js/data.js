@@ -1,17 +1,22 @@
 /* exported data */
 var data = {
   view: 'images',
-  favorites: [],
-  comments: [],
-  editing: null,
-  imageId: 1
+  favorites: [
+    {
+      src: '',
+      comment: '',
+      favorited: true,
+      imageId: 1
+    }
+  ],
+  editing: null
 };
-var previousData = localStorage.getItem('data-local-storage');
+var previousData = localStorage.getItem('image-local-storage');
 if (previousData !== null) {
   data = JSON.parse(previousData);
 }
 function stringifyData(event) {
-  var dataJSON = JSON.stringify(data);
-  localStorage.setItem('data-local-storage', dataJSON);
+  var imagesJSON = JSON.stringify(data);
+  localStorage.setItem('image-local-storage', imagesJSON);
 }
 window.addEventListener('beforeunload', stringifyData);

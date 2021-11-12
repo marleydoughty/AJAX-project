@@ -1,7 +1,9 @@
+/* global data */
+/* exported data */
 var $allImages = document.querySelector('.images');
-// var $formInputs = document.querySelector('#form-inputs');
+// var $formInputs = document.querySelectorAll('#form-inputs');
 
-function renderData(images) {
+function renderImages(images) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.thecatapi.com/v1/images/search?limit=100&page=0');
   xhr.responseType = 'json';
@@ -54,12 +56,9 @@ function renderData(images) {
   });
   xhr.send();
 }
+renderImages();
 
-renderData();
-
-// function handleDomContent(event) {
-
-// }
+// window.addEventListener('DOMContentLoaded', renderImages());
 
 function clickedCommentIcon(event) {
   if (event.target && event.target.tagName === 'I') {
@@ -67,15 +66,14 @@ function clickedCommentIcon(event) {
     closestCommentForm.className = 'comment-form';
   }
 }
+
 $allImages.addEventListener('click', clickedCommentIcon);
 
 // function handleSaveComment(event) {
 //   event.preventDefault();
-//   // var commentData = {
-//   //   comment: $formInputs.elements['comment-box'].value,
-//   //   imageId: data.imageId
-//   // };
-//   // data.imageId++;
-//   // data.comments.unshift(commentData);
+//   var commentData = {
+//     comment: $formInputs.elements['comment-box'].value
+//   };
+
 // }
 // $formInputs.addEventListener('submit', handleSaveComment);

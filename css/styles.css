@@ -78,6 +78,7 @@ img {
   border: none;
   color: #177cff;
   padding-left: 240px;
+  cursor: pointer;
 }
 
 .comment-section {
@@ -87,10 +88,20 @@ img {
 
 .comment-icon {
   padding-left: 7px;
+  cursor: pointer;
+}
+
+.comment-icon:hover {
+  color: #177cff;
 }
 
 #comment-box {
   width: 275px;
+  border-radius: 4px;
+}
+
+#comment-box:focus {
+  border-color: #177cff;
 }
 
 .image-container {
