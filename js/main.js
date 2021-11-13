@@ -109,16 +109,6 @@ function clickedCommentIcon(event) {
 }
 $allImages.addEventListener('click', clickedCommentIcon);
 
-// function editComment(event) {
-//   // if (event.target && event.target.tagName === 'I') {
-//   //   var imageIndex = findImageIndex(event.target);
-//   //   if (imageIndex !== undefined) {
-//   //     imageValues[imageIndex].editing = true;
-//   //     var textValue = event.target.querySelector('input').value;
-//   //     return textValue;
-// }
-// $allImages.addEventListener('click', editComment);
-
 function handleSaveComment(event) {
   event.preventDefault();
   var textValue = event.target.querySelector('input').value;
