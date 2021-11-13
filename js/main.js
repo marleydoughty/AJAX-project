@@ -69,11 +69,21 @@ function renderImages() {
     }
     form.appendChild(commentInput);
 
+    var buttonRow = document.createElement('div');
+    buttonRow.className = 'row sb';
+    form.appendChild(buttonRow);
+
+    var deleteComment = document.createElement('input');
+    deleteComment.setAttribute('type', 'button');
+    deleteComment.setAttribute('value', 'Delete');
+    deleteComment.setAttribute('id', 'delete-button');
+    buttonRow.appendChild(deleteComment);
+
     var saveComment = document.createElement('input');
     saveComment.setAttribute('type', 'submit');
     saveComment.setAttribute('value', 'Save');
     saveComment.setAttribute('id', 'save-button');
-    form.appendChild(saveComment);
+    buttonRow.appendChild(saveComment);
 
     var commentIconContainer = document.createElement('div');
     commentIconContainer.className = 'comment-icon column-half';
