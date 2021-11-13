@@ -63,6 +63,10 @@ function renderImages() {
     commentInput.setAttribute('type', 'text');
     commentInput.setAttribute('placeholder', 'Add comments here');
     commentInput.setAttribute('id', 'comment-box');
+    if (imageValues[i].editing === true) {
+      commentOutput.className = 'hidden';
+      commentInput.value = commentOutput.textContent;
+    }
     form.appendChild(commentInput);
 
     var saveComment = document.createElement('input');
@@ -113,7 +117,6 @@ function handleSaveComment(event) {
   if (imageIndex !== undefined) {
     imageValues[imageIndex].editing = false;
   }
-
   data.comments.push({
     textValue,
     imageId
