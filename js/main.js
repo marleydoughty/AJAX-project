@@ -63,6 +63,12 @@ function renderImages() {
     commentInput.setAttribute('type', 'text');
     commentInput.setAttribute('placeholder', 'Add comments here');
     commentInput.setAttribute('id', 'comment-box');
+    if (imageValues[i].editing === true) {
+      commentOutput.className = 'hidden';
+    }
+    if (commentObj) {
+      commentInput.value = commentOutput.textContent;
+    }
     form.appendChild(commentInput);
 
     var saveComment = document.createElement('input');
@@ -103,6 +109,16 @@ function clickedCommentIcon(event) {
 }
 $allImages.addEventListener('click', clickedCommentIcon);
 
+// function editComment(event) {
+//   // if (event.target && event.target.tagName === 'I') {
+//   //   var imageIndex = findImageIndex(event.target);
+//   //   if (imageIndex !== undefined) {
+//   //     imageValues[imageIndex].editing = true;
+//   //     var textValue = event.target.querySelector('input').value;
+//   //     return textValue;
+// }
+// $allImages.addEventListener('click', editComment);
+
 function handleSaveComment(event) {
   event.preventDefault();
   var textValue = event.target.querySelector('input').value;
@@ -113,7 +129,6 @@ function handleSaveComment(event) {
   if (imageIndex !== undefined) {
     imageValues[imageIndex].editing = false;
   }
-
   data.comments.push({
     textValue,
     imageId
