@@ -2,10 +2,10 @@
 var data = {
   view: 'images',
   comments: [
-    {
-      imageId: '',
-      textValue: ''
-    }
+    // {
+    //   imageId: '',
+    //   textValue: ''
+    // }
   ],
   favorites: [
     // {

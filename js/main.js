@@ -65,8 +65,6 @@ function renderImages() {
     commentInput.setAttribute('id', 'comment-box');
     if (imageValues[i].editing === true) {
       commentOutput.className = 'hidden';
-    }
-    if (commentObj) {
       commentInput.value = commentOutput.textContent;
     }
     form.appendChild(commentInput);
