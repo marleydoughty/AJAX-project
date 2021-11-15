@@ -17,7 +17,7 @@ function fetchImages() {
 function renderImages() {
   $allImages.innerHTML = '';
 
-  for (var i = 0; i < 9; i++) {
+  for (var i = 0; i < imageValues.length; i++) {
     var imageContainer = document.createElement('div');
     imageContainer.className = 'row image-container end view';
     imageContainer.setAttribute('data-id', imageValues[i].id);
@@ -171,15 +171,10 @@ function handleFavoriteImage(event) {
   );
   renderImages();
 }
-var $navButtons = document.querySelectorAll('.tabs');
 var $navFavoritesButton = document.querySelector('.tab-favorites');
 
-function viewFavorites(viewContent) {
-  for (var i = 0; i < $navButtons.length; i++) {
-    if (event.target.getAttribute('data-link') === viewContent) {
-      imageValues = data.favorites;
-      renderImages();
-    }
-  }
+function viewFavorites(event) {
+  imageValues = data.favorites;
+  renderImages();
 }
 $navFavoritesButton.addEventListener('click', viewFavorites);
