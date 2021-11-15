@@ -19,13 +19,15 @@ function renderImages() {
 
   for (var i = 0; i < 9; i++) {
     var imageContainer = document.createElement('div');
-    imageContainer.className = 'row image-container end';
+    imageContainer.className = 'row image-container end view';
     imageContainer.setAttribute('data-id', imageValues[i].id);
+    // imageContainer.setAttribute('data-view', 'images');
+    // imageContainer.className = 'view';
     $allImages.appendChild(imageContainer);
 
     var image = document.createElement('img');
     image.setAttribute('src', imageValues[i].url);
-    image.setAttribute('data-view', 'images');
+    // image.setAttribute('data-view', 'images');
     image.className = 'column-full';
     imageContainer.appendChild(image);
 
@@ -169,3 +171,15 @@ function handleFavoriteImage(event) {
   );
   renderImages();
 }
+var $navButtons = document.querySelectorAll('.tabs');
+var $navFavoritesButton = document.querySelector('.tab-favorites');
+
+function viewFavorites(viewContent) {
+  for (var i = 0; i < $navButtons.length; i++) {
+    if (event.target.getAttribute('data-link') === viewContent) {
+      imageValues = data.favorites;
+      renderImages();
+    }
+  }
+}
+$navFavoritesButton.addEventListener('click', viewFavorites);
