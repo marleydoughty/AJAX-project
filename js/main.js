@@ -25,6 +25,7 @@ function renderImages() {
 
     var image = document.createElement('img');
     image.setAttribute('src', imageValues[i].url);
+    image.setAttribute('data-view', 'images');
     image.className = 'column-full';
     imageContainer.appendChild(image);
 
@@ -93,6 +94,17 @@ function renderImages() {
     var commentIcon = document.createElement('i');
     commentIcon.className = 'far fa-comment';
     commentIconContainer.appendChild(commentIcon);
+    commentIcon.addEventListener('click', clickedCommentIcon);
+
+    var favoriteIcon = document.createElement('i');
+    favoriteIcon.className = 'far fa-heart';
+    commentIconContainer.appendChild(favoriteIcon);
+    favoriteIcon.addEventListener('click', handleFavoriteImage);
+    for (var fi = 0; fi < data.favorites.length; fi++) {
+      if (data.favorites[fi] === imageValues[i]) {
+        favoriteIcon.className = 'fas fa-heart';
+      }
+    }
   }
 }
 fetchImages();
@@ -116,7 +128,7 @@ function clickedCommentIcon(event) {
     }
   }
 }
-$allImages.addEventListener('click', clickedCommentIcon);
+// $allImages.addEventListener('click', clickedCommentIcon);
 
 function handleSaveComment(event) {
   event.preventDefault();
@@ -147,4 +159,13 @@ function handleDeleteComment(event) {
       }
     }
   }
+}
+
+function handleFavoriteImage(event) {
+  event.preventDefault();
+  var imageIndex = findImageIndex(event.target);
+  data.favorites.push(
+    imageValues[imageIndex]
+  );
+  renderImages();
 }
