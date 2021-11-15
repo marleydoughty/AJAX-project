@@ -77,7 +77,12 @@ img {
 #save-button {
   border: none;
   color: #177cff;
-  padding-left: 240px;
+  cursor: pointer;
+}
+
+#delete-button {
+  border: none;
+  color: red;
   cursor: pointer;
 }
 

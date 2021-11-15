@@ -69,11 +69,22 @@ function renderImages() {
     }
     form.appendChild(commentInput);
 
+    var buttonRow = document.createElement('div');
+    buttonRow.className = 'row sb';
+    form.appendChild(buttonRow);
+
+    var deleteComment = document.createElement('input');
+    deleteComment.setAttribute('type', 'button');
+    deleteComment.setAttribute('value', 'Delete');
+    deleteComment.setAttribute('id', 'delete-button');
+    buttonRow.appendChild(deleteComment);
+    deleteComment.addEventListener('click', handleDeleteComment);
+
     var saveComment = document.createElement('input');
     saveComment.setAttribute('type', 'submit');
     saveComment.setAttribute('value', 'Save');
     saveComment.setAttribute('id', 'save-button');
-    form.appendChild(saveComment);
+    buttonRow.appendChild(saveComment);
 
     var commentIconContainer = document.createElement('div');
     commentIconContainer.className = 'comment-icon column-half';
@@ -122,4 +133,18 @@ function handleSaveComment(event) {
     imageId
   });
   renderImages();
+}
+
+function handleDeleteComment(event) {
+  for (var i = 0; i < imageValues.length; i++) {
+    if (imageValues[i].editing === true) {
+      for (var ci = 0; ci < data.comments.length; ci++) {
+        if (data.comments[ci].imageId === imageValues[i].id) {
+          data.comments.splice(ci, 1);
+          imageValues[i].editing = false;
+          renderImages();
+        }
+      }
+    }
+  }
 }
