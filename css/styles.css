@@ -56,6 +56,10 @@ img {
   margin-left: 20px;
 }
 
+.fas.fa-info {
+  margin-left: 15px;
+}
+
 .bottom-nav {
   background-color: #562a81;
   color: white;

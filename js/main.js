@@ -2,7 +2,7 @@
 /* exported data */
 var $allImages = document.querySelector('.images');
 var imageValues = [];
-
+// var factValues = [];
 function fetchImages() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.thecatapi.com/v1/images/search?limit=100&page=0');
@@ -175,3 +175,15 @@ function viewFavorites(event) {
   renderImages();
 }
 $navFavoritesButton.addEventListener('click', viewFavorites);
+
+// function fetchFacts(event) {
+//   var xhr = new XMLHttpRequest();
+//   xhr.open('GET', 'https://cat-fact.herokuapp.com/facts');
+//   xhr.responseType = 'json';
+//   xhr.addEventListener('load', function () {
+//     factValues = xhr.response;
+//     renderImages();
+//   });
+//   xhr.send();
+// }
+// fetchFacts();
