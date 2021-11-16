@@ -17,6 +17,11 @@
   font-size: 22px;
 }
 
+.column-header {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
 a:visited {
   color: white;
 }
@@ -48,7 +53,7 @@ img {
 }
 
 .fas {
-  margin-right: 5px;
+  margin-left: 20px;
 }
 
 .bottom-nav {
@@ -96,7 +101,28 @@ img {
   cursor: pointer;
 }
 
-.comment-icon:hover {
+.comment-icon .fa-heart {
+  margin-left: 3px;
+}
+
+.fa-heart:hover {
+  color: red;
+}
+
+.header-nav.fas.fa-heart {
+  color: white;
+}
+
+.fas.fa-heart.bottom {
+  color: white;
+  padding-left: 5px;
+}
+
+.fas.fa-heart {
+  color: red;
+}
+
+.fa-comment:hover {
   color: #177cff;
 }
 

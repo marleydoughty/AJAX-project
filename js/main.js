@@ -16,10 +16,9 @@ function fetchImages() {
 
 function renderImages() {
   $allImages.innerHTML = '';
-
-  for (var i = 0; i < 9; i++) {
+  for (var i = 0; i < imageValues.length; i++) {
     var imageContainer = document.createElement('div');
-    imageContainer.className = 'row image-container end';
+    imageContainer.className = 'row image-container end view';
     imageContainer.setAttribute('data-id', imageValues[i].id);
     $allImages.appendChild(imageContainer);
 
@@ -93,6 +92,17 @@ function renderImages() {
     var commentIcon = document.createElement('i');
     commentIcon.className = 'far fa-comment';
     commentIconContainer.appendChild(commentIcon);
+    commentIcon.addEventListener('click', clickedCommentIcon);
+
+    var favoriteIcon = document.createElement('i');
+    favoriteIcon.className = 'far fa-heart';
+    commentIconContainer.appendChild(favoriteIcon);
+    favoriteIcon.addEventListener('click', handleFavoriteImage);
+    for (var fi = 0; fi < data.favorites.length; fi++) {
+      if (data.favorites[fi] === imageValues[i]) {
+        favoriteIcon.className = 'fas fa-heart';
+      }
+    }
   }
 }
 fetchImages();
@@ -116,7 +126,6 @@ function clickedCommentIcon(event) {
     }
   }
 }
-$allImages.addEventListener('click', clickedCommentIcon);
 
 function handleSaveComment(event) {
   event.preventDefault();
@@ -148,3 +157,21 @@ function handleDeleteComment(event) {
     }
   }
 }
+
+function handleFavoriteImage(event) {
+  event.preventDefault();
+  var imageIndex = findImageIndex(event.target);
+  data.favorites.push(
+    imageValues[imageIndex]
+  );
+  renderImages();
+}
+var $navFavoritesButton = document.querySelector('.tab-favorites');
+var $bottomNavImageIcon = document.querySelector('.img');
+
+function viewFavorites(event) {
+  imageValues = data.favorites;
+  $bottomNavImageIcon.className = 'hidden';
+  renderImages();
+}
+$navFavoritesButton.addEventListener('click', viewFavorites);
