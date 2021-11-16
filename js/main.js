@@ -16,7 +16,6 @@ function fetchImages() {
 
 function renderImages() {
   $allImages.innerHTML = '';
-  // for (var i = 0; i < imageValues.length; i++)
   for (var i = 0; i < imageValues.length; i++) {
     var imageContainer = document.createElement('div');
     imageContainer.className = 'row image-container end view';
