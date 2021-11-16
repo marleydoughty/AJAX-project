@@ -16,18 +16,15 @@ function fetchImages() {
 
 function renderImages() {
   $allImages.innerHTML = '';
-
+  // for (var i = 0; i < imageValues.length; i++)
   for (var i = 0; i < imageValues.length; i++) {
     var imageContainer = document.createElement('div');
     imageContainer.className = 'row image-container end view';
     imageContainer.setAttribute('data-id', imageValues[i].id);
-    // imageContainer.setAttribute('data-view', 'images');
-    // imageContainer.className = 'view';
     $allImages.appendChild(imageContainer);
 
     var image = document.createElement('img');
     image.setAttribute('src', imageValues[i].url);
-    // image.setAttribute('data-view', 'images');
     image.className = 'column-full';
     imageContainer.appendChild(image);
 
@@ -130,7 +127,6 @@ function clickedCommentIcon(event) {
     }
   }
 }
-// $allImages.addEventListener('click', clickedCommentIcon);
 
 function handleSaveComment(event) {
   event.preventDefault();
@@ -172,9 +168,11 @@ function handleFavoriteImage(event) {
   renderImages();
 }
 var $navFavoritesButton = document.querySelector('.tab-favorites');
+var $bottomNavImageIcon = document.querySelector('.img');
 
 function viewFavorites(event) {
   imageValues = data.favorites;
+  $bottomNavImageIcon.className = 'hidden';
   renderImages();
 }
 $navFavoritesButton.addEventListener('click', viewFavorites);
