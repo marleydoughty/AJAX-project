@@ -28,8 +28,8 @@ body {
   flex-direction: column;
 }
 
-.jc-center {
-  justify-content: center;
+.jc-evenly {
+  justify-content: space-evenly;
 }
 
 .end {
@@ -74,5 +74,10 @@ body {
 
   .header-nav.icon {
     display: none;
+  }
+
+  li {
+    font-size: 20px;
+    padding: 10px;
   }
 }

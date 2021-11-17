@@ -1,8 +1,16 @@
 /* global data */
 /* exported data */
 var $allImages = document.querySelector('.images');
+var $navFavoritesButton = document.querySelector('.tab-favorites');
+var $navFactsButton = document.querySelector('.tab-facts');
+var $navImagesButton = document.querySelector('.tab-images');
+var $bottomNavImageButton = document.querySelector('.img');
+var $bottomNavFactButton = document.querySelector('.fact');
+var $bottomNavFavoritesButton = document.querySelector('.fav');
+var $factsSection = document.querySelector('.facts');
 var imageValues = [];
-// var factValues = [];
+var factValues = [];
+
 function fetchImages() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.thecatapi.com/v1/images/search?limit=100&page=0');
@@ -166,24 +174,57 @@ function handleFavoriteImage(event) {
   );
   renderImages();
 }
-var $navFavoritesButton = document.querySelector('.tab-favorites');
-var $bottomNavImageIcon = document.querySelector('.img');
 
 function viewFavorites(event) {
   imageValues = data.favorites;
-  $bottomNavImageIcon.className = 'hidden';
+  $allImages.className = 'images';
+  $factsSection.className = 'facts hidden';
   renderImages();
 }
-$navFavoritesButton.addEventListener('click', viewFavorites);
 
-// function fetchFacts(event) {
-//   var xhr = new XMLHttpRequest();
-//   xhr.open('GET', 'https://cat-fact.herokuapp.com/facts');
-//   xhr.responseType = 'json';
-//   xhr.addEventListener('load', function () {
-//     factValues = xhr.response;
-//     renderImages();
-//   });
-//   xhr.send();
-// }
-// fetchFacts();
+function viewFacts(event) {
+  $allImages.className = 'images hidden';
+  $factsSection.className = 'facts';
+}
+
+function viewImages(event) {
+  imageValues = [];
+  $allImages.className = 'images';
+  $factsSection.className = 'facts hidden';
+  renderImages();
+  fetchImages();
+}
+
+function fetchFacts(event) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://cat-fact.herokuapp.com/facts');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    factValues = xhr.response;
+    renderFacts();
+  });
+  xhr.send();
+}
+fetchFacts();
+
+function renderFacts(event) {
+  var header = document.createElement('h1');
+  header.textContent = 'Did you know?';
+  $factsSection.appendChild(header);
+
+  var factsContainer = document.createElement('ul');
+  $factsSection.appendChild(factsContainer);
+
+  for (var i = 0; i < factValues.length; i++) {
+    var fact = document.createElement('li');
+    fact.textContent = factValues[i].text;
+    factsContainer.appendChild(fact);
+  }
+}
+
+$navFavoritesButton.addEventListener('click', viewFavorites);
+$navImagesButton.addEventListener('click', viewImages);
+$navFactsButton.addEventListener('click', viewFacts);
+$bottomNavImageButton.addEventListener('click', viewImages);
+$bottomNavFactButton.addEventListener('click', viewFacts);
+$bottomNavFavoritesButton.addEventListener('click', viewFavorites);

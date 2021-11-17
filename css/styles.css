@@ -42,6 +42,30 @@ header {
   justify-content: space-evenly;
 }
 
+.facts {
+  padding-top: 100px;
+}
+
+.facts-header {
+  display: flex;
+  justify-content: center;
+}
+
+.facts-header > h1 {
+  font-size: 3rem;
+}
+
+li {
+  margin: 10px;
+  font-size: 30px;
+  padding: 20px;
+}
+
+.facts > h1 {
+  text-align: center;
+  font-size: 40px;
+}
+
 img {
   width: 300px;
   height: 200px;
