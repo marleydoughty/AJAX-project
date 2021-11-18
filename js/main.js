@@ -8,6 +8,12 @@ var $bottomNavImageButton = document.querySelector('.img');
 var $bottomNavFactButton = document.querySelector('.fact');
 var $bottomNavFavoritesButton = document.querySelector('.fav');
 var $factsSection = document.querySelector('.facts');
+var topImg = document.querySelector('.column-header.i');
+var topFav = document.querySelector('.column-header.fv');
+var topFact = document.querySelector('.column-header.fc');
+var bottomImg = document.querySelector('.mb-10.img');
+var bottomFav = document.querySelector('.mb-10.fav');
+var bottomFact = document.querySelector('.mb-10.fact');
 var imageValues = [];
 var factValues = [];
 
@@ -167,30 +173,24 @@ function handleDeleteComment(event) {
 }
 
 function handleFavoriteImage(event) {
-  event.preventDefault();
+  // event.preventDefault();
   var imageIndex = findImageIndex(event.target);
   data.favorites.push(
     imageValues[imageIndex]
   );
   renderImages();
 }
-var topImg = document.querySelector('.column-header.i');
-var topFav = document.querySelector('column-header.fv');
-var topFact = document.querySelector('.column-header.fc');
-var bottomImg = document.querySelector('.mb-10.img');
-var bottomFav = document.querySelector('.mb-10.fav');
-var bottomFact = document.querySelector('.mb-10.fact');
 
 function viewFavorites(event) {
   imageValues = data.favorites;
   $allImages.className = 'images';
   $factsSection.className = 'facts hidden';
-  topFav.className = 'active column-header fv';
-  bottomFav.className = 'active mb-10 fav';
   topImg.className = 'column-header i';
   bottomImg.className = 'mb-10 img';
   topFact.className = 'column-header fc';
   bottomFact.className = 'mb-10 fact';
+  topFav.className = 'active column-header fv';
+  bottomFav.className = 'active mb-10 fav';
   renderImages();
 }
 
@@ -201,6 +201,8 @@ function viewFacts(event) {
   bottomFact.className = 'active mb-10 fact';
   topImg.className = 'column-header i';
   bottomImg.className = 'mb-10 img';
+  topFav.className = 'column-header fv';
+  bottomFav.className = 'mb-10 fav';
 }
 
 function viewImages(event) {
@@ -211,6 +213,8 @@ function viewImages(event) {
   bottomImg.className = 'active mb-10 img';
   topFact.className = 'column-header fc';
   bottomFact.className = 'mb-10 fact';
+  topFav.className = 'column-header fv';
+  bottomFav.className = 'mb-10 fav';
   renderImages();
   fetchImages();
 }
