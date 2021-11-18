@@ -167,3 +167,7 @@ img {
   flex-wrap: wrap;
   width: 300px;
 }
+
+.inactive {
+  opacity: 50%;
+}
