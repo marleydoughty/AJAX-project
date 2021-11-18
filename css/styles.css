@@ -20,6 +20,11 @@
 .column-header {
   margin-right: 20px;
   margin-left: 20px;
+  opacity: 50%;
+}
+
+.mb-10 {
+  opacity: 50%;
 }
 
 a:visited {
@@ -42,6 +47,30 @@ header {
   justify-content: space-evenly;
 }
 
+.facts {
+  padding-top: 100px;
+}
+
+.facts-header {
+  display: flex;
+  justify-content: center;
+}
+
+.facts-header > h1 {
+  font-size: 3rem;
+}
+
+li {
+  margin: 10px;
+  font-size: 30px;
+  padding: 20px;
+}
+
+.facts > h1 {
+  text-align: center;
+  font-size: 40px;
+}
+
 img {
   width: 300px;
   height: 200px;
@@ -54,6 +83,10 @@ img {
 
 .fas {
   margin-left: 20px;
+}
+
+.fas.fa-info {
+  margin-left: 15px;
 }
 
 .bottom-nav {
@@ -138,4 +171,8 @@ img {
 .image-container {
   flex-wrap: wrap;
   width: 300px;
+}
+
+.active {
+  opacity: 100%;
 }

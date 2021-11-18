@@ -1,7 +1,21 @@
 /* global data */
 /* exported data */
 var $allImages = document.querySelector('.images');
+var $navFavoritesButton = document.querySelector('.tab-favorites');
+var $navFactsButton = document.querySelector('.tab-facts');
+var $navImagesButton = document.querySelector('.tab-images');
+var $bottomNavImageButton = document.querySelector('.img');
+var $bottomNavFactButton = document.querySelector('.fact');
+var $bottomNavFavoritesButton = document.querySelector('.fav');
+var $factsSection = document.querySelector('.facts');
+var topImg = document.querySelector('.column-header.i');
+var topFav = document.querySelector('.column-header.fv');
+var topFact = document.querySelector('.column-header.fc');
+var bottomImg = document.querySelector('.mb-10.img');
+var bottomFav = document.querySelector('.mb-10.fav');
+var bottomFact = document.querySelector('.mb-10.fact');
 var imageValues = [];
+var factValues = [];
 
 function fetchImages() {
   var xhr = new XMLHttpRequest();
@@ -159,19 +173,82 @@ function handleDeleteComment(event) {
 }
 
 function handleFavoriteImage(event) {
-  event.preventDefault();
+  // event.preventDefault();
   var imageIndex = findImageIndex(event.target);
   data.favorites.push(
     imageValues[imageIndex]
   );
   renderImages();
 }
-var $navFavoritesButton = document.querySelector('.tab-favorites');
-var $bottomNavImageIcon = document.querySelector('.img');
 
 function viewFavorites(event) {
   imageValues = data.favorites;
-  $bottomNavImageIcon.className = 'hidden';
+  $allImages.className = 'images';
+  $factsSection.className = 'facts hidden';
+  topImg.className = 'column-header i';
+  bottomImg.className = 'mb-10 img';
+  topFact.className = 'column-header fc';
+  bottomFact.className = 'mb-10 fact';
+  topFav.className = 'active column-header fv';
+  bottomFav.className = 'active mb-10 fav';
   renderImages();
 }
+
+function viewFacts(event) {
+  $allImages.className = 'images hidden';
+  $factsSection.className = 'facts';
+  topFact.className = 'active column-header fc';
+  bottomFact.className = 'active mb-10 fact';
+  topImg.className = 'column-header i';
+  bottomImg.className = 'mb-10 img';
+  topFav.className = 'column-header fv';
+  bottomFav.className = 'mb-10 fav';
+}
+
+function viewImages(event) {
+  imageValues = [];
+  $allImages.className = 'images';
+  $factsSection.className = 'facts hidden';
+  topImg.className = 'active column-header i';
+  bottomImg.className = 'active mb-10 img';
+  topFact.className = 'column-header fc';
+  bottomFact.className = 'mb-10 fact';
+  topFav.className = 'column-header fv';
+  bottomFav.className = 'mb-10 fav';
+  renderImages();
+  fetchImages();
+}
+
+function fetchFacts(event) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://cat-fact.herokuapp.com/facts');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    factValues = xhr.response;
+    renderFacts();
+  });
+  xhr.send();
+}
+fetchFacts();
+
+function renderFacts(event) {
+  var header = document.createElement('h1');
+  header.textContent = 'Did you know?';
+  $factsSection.appendChild(header);
+
+  var factsContainer = document.createElement('ul');
+  $factsSection.appendChild(factsContainer);
+
+  for (var i = 0; i < factValues.length; i++) {
+    var fact = document.createElement('li');
+    fact.textContent = factValues[i].text;
+    factsContainer.appendChild(fact);
+  }
+}
+
 $navFavoritesButton.addEventListener('click', viewFavorites);
+$navImagesButton.addEventListener('click', viewImages);
+$navFactsButton.addEventListener('click', viewFacts);
+$bottomNavImageButton.addEventListener('click', viewImages);
+$bottomNavFactButton.addEventListener('click', viewFacts);
+$bottomNavFavoritesButton.addEventListener('click', viewFavorites);
