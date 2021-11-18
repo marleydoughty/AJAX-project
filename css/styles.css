@@ -20,6 +20,11 @@
 .column-header {
   margin-right: 20px;
   margin-left: 20px;
+  opacity: 50%;
+}
+
+.mb-10 {
+  opacity: 50%;
 }
 
 a:visited {
@@ -168,6 +173,6 @@ img {
   width: 300px;
 }
 
-.inactive {
-  opacity: 50%;
+.active {
+  opacity: 100%;
 }

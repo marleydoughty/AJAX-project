@@ -174,23 +174,43 @@ function handleFavoriteImage(event) {
   );
   renderImages();
 }
+var topImg = document.querySelector('.column-header.i');
+var topFav = document.querySelector('column-header.fv');
+var topFact = document.querySelector('.column-header.fc');
+var bottomImg = document.querySelector('.mb-10.img');
+var bottomFav = document.querySelector('.mb-10.fav');
+var bottomFact = document.querySelector('.mb-10.fact');
 
 function viewFavorites(event) {
   imageValues = data.favorites;
   $allImages.className = 'images';
   $factsSection.className = 'facts hidden';
+  topFav.className = 'active column-header fv';
+  bottomFav.className = 'active mb-10 fav';
+  topImg.className = 'column-header i';
+  bottomImg.className = 'mb-10 img';
+  topFact.className = 'column-header fc';
+  bottomFact.className = 'mb-10 fact';
   renderImages();
 }
 
 function viewFacts(event) {
   $allImages.className = 'images hidden';
   $factsSection.className = 'facts';
+  topFact.className = 'active column-header fc';
+  bottomFact.className = 'active mb-10 fact';
+  topImg.className = 'column-header i';
+  bottomImg.className = 'mb-10 img';
 }
 
 function viewImages(event) {
   imageValues = [];
   $allImages.className = 'images';
   $factsSection.className = 'facts hidden';
+  topImg.className = 'active column-header i';
+  bottomImg.className = 'active mb-10 img';
+  topFact.className = 'column-header fc';
+  bottomFact.className = 'mb-10 fact';
   renderImages();
   fetchImages();
 }
