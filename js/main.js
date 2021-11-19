@@ -175,9 +175,11 @@ function handleDeleteComment(event) {
 function handleFavoriteImage(event) {
   // event.preventDefault();
   var imageIndex = findImageIndex(event.target);
-  data.favorites.push(
-    imageValues[imageIndex]
-  );
+  if (!data.favorites.includes(imageValues[imageIndex])) {
+    data.favorites.push(
+      imageValues[imageIndex]
+    );
+  }
   renderImages();
 }
 
