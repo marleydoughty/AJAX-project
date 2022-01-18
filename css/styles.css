@@ -77,7 +77,6 @@ img {
   object-fit: cover;
   margin-bottom: 10px;
   border-radius: 3px;
-  cursor: pointer;
   box-shadow: 0 2px 4px rgb(0 0 0 / 40%);
 }
 
@@ -132,10 +131,11 @@ img {
 .comment-icon {
   padding-left: 7px;
   cursor: pointer;
+  font-size: 24px;
 }
 
 .comment-icon .fa-heart {
-  margin-left: 3px;
+  margin-left: 10px;
 }
 
 .fa-heart:hover {
@@ -175,4 +175,24 @@ img {
 
 .active {
   opacity: 100%;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  font-size: 40px;
+  padding-top: 100px;
+  position: fixed;
+  top: 55px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.tabs {
+  cursor: pointer;
 }

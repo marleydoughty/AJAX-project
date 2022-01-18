@@ -14,15 +14,19 @@ var topFact = document.querySelector('.column-header.fc');
 var bottomImg = document.querySelector('.mb-10.img');
 var bottomFav = document.querySelector('.mb-10.fav');
 var bottomFact = document.querySelector('.mb-10.fact');
+var $loadingSpinner = document.querySelector('.loading-spinner');
+
 var imageValues = [];
 var factValues = [];
 
 function fetchImages() {
   var xhr = new XMLHttpRequest();
+  $loadingSpinner.classList.remove('hidden');
   xhr.open('GET', 'https://api.thecatapi.com/v1/images/search?limit=100&page=0');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     imageValues = xhr.response;
+    $loadingSpinner.classList.add('hidden');
     renderImages();
   });
   xhr.send();
