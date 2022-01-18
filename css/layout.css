@@ -85,6 +85,10 @@ body {
     padding-top: 70px;
   }
 
+  .loading-spinner {
+    font-size: 40px;
+  }
+
   li {
     font-size: 20px;
     padding: 10px;
