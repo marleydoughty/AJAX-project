@@ -178,3 +178,14 @@ img {
 .active {
   opacity: 100%;
 }
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  font-size: 26px;
+  padding-top: 100px;
+}
+
+.hidden {
+  display: none;
+}
