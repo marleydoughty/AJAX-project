@@ -88,7 +88,7 @@ img {
   margin-left: 15px;
 }
 
-.bottom-nav {
+.bottom-nav-bar {
   background-color: #562a81;
   color: white;
   font-weight: 100;
@@ -101,12 +101,12 @@ img {
   z-index: 33;
 }
 
-.bottom-nav i {
+.bottom-nav-bar i {
   margin-left: 15px;
   margin-right: 15px;
 }
 
-.bottom-nav a {
+.bottom-nav-bar a {
   text-decoration: none;
   color: white;
 }
@@ -138,6 +138,10 @@ img {
   margin-left: 10px;
 }
 
+.comment-icon .fa-comment {
+  margin-left: 10px;
+}
+
 .fa-heart:hover {
   color: red;
 }
@@ -160,12 +164,8 @@ img {
 }
 
 #comment-box {
-  width: 275px;
+  width: 260px;
   border-radius: 4px;
-}
-
-#comment-box:focus {
-  border-color: #177cff;
 }
 
 .image-container {

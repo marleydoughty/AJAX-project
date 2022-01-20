@@ -1,12 +1,12 @@
 /* global data */
 /* exported data */
 var $allImages = document.querySelector('.images');
-var $navFavoritesButton = document.querySelector('.tab-favorites');
-var $navFactsButton = document.querySelector('.tab-facts');
-var $navImagesButton = document.querySelector('.tab-images');
-var $bottomNavImageButton = document.querySelector('.img');
-var $bottomNavFactButton = document.querySelector('.fact');
-var $bottomNavFavoritesButton = document.querySelector('.fav');
+var $topNavFavorites = document.querySelector('.tab-favorites');
+var $topNavFacts = document.querySelector('.tab-facts');
+var $topNavImages = document.querySelector('.tab-images');
+var $bottomNavImages = document.querySelector('.img');
+var $bottomNavFacts = document.querySelector('.fact');
+var $bottomNavFavorites = document.querySelector('.fav');
 var $factsSection = document.querySelector('.facts');
 var topImg = document.querySelector('.column-header.i');
 var topFav = document.querySelector('.column-header.fv');
@@ -15,7 +15,6 @@ var bottomImg = document.querySelector('.mb-10.img');
 var bottomFav = document.querySelector('.mb-10.fav');
 var bottomFact = document.querySelector('.mb-10.fact');
 var $loadingSpinner = document.querySelector('.loading-spinner');
-
 var imageValues = [];
 var factValues = [];
 
@@ -177,7 +176,6 @@ function handleDeleteComment(event) {
 }
 
 function handleFavoriteImage(event) {
-  // event.preventDefault();
   var imageIndex = findImageIndex(event.target);
   if (!data.favorites.includes(imageValues[imageIndex])) {
     data.favorites.push(
@@ -252,9 +250,9 @@ function renderFacts(event) {
   }
 }
 
-$navFavoritesButton.addEventListener('click', viewFavorites);
-$navImagesButton.addEventListener('click', viewImages);
-$navFactsButton.addEventListener('click', viewFacts);
-$bottomNavImageButton.addEventListener('click', viewImages);
-$bottomNavFactButton.addEventListener('click', viewFacts);
-$bottomNavFavoritesButton.addEventListener('click', viewFavorites);
+$topNavFavorites.addEventListener('click', viewFavorites);
+$topNavImages.addEventListener('click', viewImages);
+$topNavFacts.addEventListener('click', viewFacts);
+$bottomNavImages.addEventListener('click', viewImages);
+$bottomNavFacts.addEventListener('click', viewFacts);
+$bottomNavFavorites.addEventListener('click', viewFavorites);
