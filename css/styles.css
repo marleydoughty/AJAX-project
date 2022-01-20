@@ -1,4 +1,4 @@
-.page-header {
+.header {
   background-color: #562a81;
   color: white;
   font-weight: 100;
@@ -11,13 +11,17 @@
   z-index: 33;
 }
 
-.page-header a {
+.header a {
   color: white;
   text-decoration: none;
   font-size: 22px;
 }
 
-.column-header {
+.top-nav-bar {
+  display: flex;
+}
+
+.top-nav-item {
   margin-right: 20px;
   margin-left: 20px;
   opacity: 50%;
@@ -146,9 +150,13 @@ img {
   color: red;
 }
 
-.header-nav.fas.fa-heart {
+.top-nav-icon.fas.fa-heart {
   color: white;
 }
+
+/* .fas.fa-heart {
+  color: white;
+} */
 
 .fas.fa-heart.bottom {
   color: white;

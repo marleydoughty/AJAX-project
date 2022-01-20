@@ -1,16 +1,16 @@
 /* global data */
 /* exported data */
 var $allImages = document.querySelector('.images');
-var $topNavFavorites = document.querySelector('.tab-favorites');
-var $topNavFacts = document.querySelector('.tab-facts');
-var $topNavImages = document.querySelector('.tab-images');
+var $topNavFavorites = document.querySelector('.favorites-link');
+var $topNavFacts = document.querySelector('.facts-link');
+var $topNavImages = document.querySelector('.images-link');
 var $bottomNavImages = document.querySelector('.img');
 var $bottomNavFacts = document.querySelector('.fact');
 var $bottomNavFavorites = document.querySelector('.fav');
 var $factsSection = document.querySelector('.facts');
-var topImg = document.querySelector('.column-header.i');
-var topFav = document.querySelector('.column-header.fv');
-var topFact = document.querySelector('.column-header.fc');
+var topImg = document.querySelector('.top-nav-item.img');
+var topFav = document.querySelector('.top-nav-item.fave');
+var topFact = document.querySelector('.top-nav-item.fact');
 var bottomImg = document.querySelector('.mb-10.img');
 var bottomFav = document.querySelector('.mb-10.fav');
 var bottomFact = document.querySelector('.mb-10.fact');
@@ -189,11 +189,11 @@ function viewFavorites(event) {
   imageValues = data.favorites;
   $allImages.className = 'images';
   $factsSection.className = 'facts hidden';
-  topImg.className = 'column-header i';
+  topImg.className = 'top-nav-item img';
   bottomImg.className = 'mb-10 img';
-  topFact.className = 'column-header fc';
+  topFact.className = 'top-nav-item fact';
   bottomFact.className = 'mb-10 fact';
-  topFav.className = 'active column-header fv';
+  topFav.className = 'active top-nav-item fave';
   bottomFav.className = 'active mb-10 fav';
   renderImages();
 }
@@ -201,11 +201,11 @@ function viewFavorites(event) {
 function viewFacts(event) {
   $allImages.className = 'images hidden';
   $factsSection.className = 'facts';
-  topFact.className = 'active column-header fc';
+  topFact.className = 'active top-nav-item fact';
   bottomFact.className = 'active mb-10 fact';
-  topImg.className = 'column-header i';
+  topImg.className = 'top-nav-item img';
   bottomImg.className = 'mb-10 img';
-  topFav.className = 'column-header fv';
+  topFav.className = 'top-nav-item fave';
   bottomFav.className = 'mb-10 fav';
 }
 
@@ -213,11 +213,11 @@ function viewImages(event) {
   imageValues = [];
   $allImages.className = 'images';
   $factsSection.className = 'facts hidden';
-  topImg.className = 'active column-header i';
-  bottomImg.className = 'active mb-10 img';
-  topFact.className = 'column-header fc';
+  topImg.className = 'active top-nav-item img';
+  bottomImg.className = 'active mb-10 image';
+  topFact.className = 'top-nav-item fact';
   bottomFact.className = 'mb-10 fact';
-  topFav.className = 'column-header fv';
+  topFav.className = 'top-nav-item fave';
   bottomFav.className = 'mb-10 fav';
   renderImages();
   fetchImages();

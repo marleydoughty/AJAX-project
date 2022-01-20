@@ -64,7 +64,7 @@ body {
 }
 
 @media screen and (max-width: 768px) {
-  .page-header {
+  .header {
     padding-top: 15px;
     font-size: 18px;
   }
@@ -73,11 +73,7 @@ body {
     padding-top: 50px;
   }
 
-  .header-nav.fas {
-    display: none;
-  }
-
-  .header-nav.icon {
+  .top-nav-item {
     display: none;
   }
 
