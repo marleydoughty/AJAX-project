@@ -35,7 +35,7 @@ function renderImages() {
   $allImages.innerHTML = '';
   for (var i = 0; i < imageValues.length; i++) {
     var imageContainer = document.createElement('div');
-    imageContainer.className = 'row image-container end view';
+    imageContainer.className = 'image-container';
     imageContainer.setAttribute('data-id', imageValues[i].id);
     $allImages.appendChild(imageContainer);
 
@@ -58,7 +58,7 @@ function renderImages() {
     imageContainer.appendChild(commentOutput);
 
     var commentSection = document.createElement('div');
-    commentSection.className = 'row comment-section';
+    commentSection.className = 'comment-section';
     imageContainer.appendChild(commentSection);
 
     var columnHalf = document.createElement('div');
@@ -103,7 +103,7 @@ function renderImages() {
     buttonRow.appendChild(saveComment);
 
     var commentIconContainer = document.createElement('div');
-    commentIconContainer.className = 'comment-icon column-half';
+    commentIconContainer.className = 'comment-icon';
     commentSection.appendChild(commentIconContainer);
 
     var commentIcon = document.createElement('i');

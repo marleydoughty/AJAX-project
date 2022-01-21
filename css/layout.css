@@ -65,16 +65,16 @@ body {
     font-size: 18px;
   }
 
-  .facts {
-    padding-top: 50px;
-  }
-
   .top-nav-item {
     display: none;
   }
 
   .images {
     padding-top: 70px;
+  }
+
+  .facts {
+    padding-top: 50px;
   }
 
   .loading-spinner {
