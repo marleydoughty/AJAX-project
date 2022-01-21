@@ -20,13 +20,13 @@ body {
   display: flex;
 }
 
-.align-center {
+/* .align-center {
   align-items: center;
-}
+} */
 
-.flex-column {
+/* .flex-column {
   flex-direction: column;
-}
+} */
 
 .jc-evenly {
   justify-content: space-evenly;
@@ -38,10 +38,6 @@ body {
 
 .sb {
   justify-content: space-between;
-}
-
-.mb-10 {
-  margin-bottom: 10px;
 }
 
 .m-10 {
