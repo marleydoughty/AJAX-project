@@ -161,7 +161,7 @@ img {
   opacity: 100%;
 }
 
-.loading-spinner {
+.loading-screen {
   display: flex;
   justify-content: center;
   font-size: 40px;
