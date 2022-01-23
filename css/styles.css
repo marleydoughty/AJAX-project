@@ -32,10 +32,6 @@
   opacity: 50%;
 }
 
-/* a:visited {
-  color: white;
-} */
-
 header {
   display: flex;
   align-items: center;
@@ -56,25 +52,12 @@ header {
   padding-top: 100px;
 }
 
-/* .facts-header {
-  display: flex;
-  justify-content: center;
-}
-
-.facts-header > h1 {
-  font-size: 3rem;
-} */
-
 li {
   margin: 10px;
   font-size: 30px;
   padding: 20px;
 }
 
-/* .facts > h1 {
-  text-align: center;
-  font-size: 40px;
-} */
 h1 {
   text-align: center;
   font-size: 40px;
@@ -117,6 +100,7 @@ img {
 .comment-section {
   margin-bottom: 12px;
   align-items: center;
+  display: flex;
 }
 
 .comment-icon {
