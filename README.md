@@ -17,7 +17,8 @@ Take a look for yourself and let me know your thoughts! [https://marleydoughty.g
 
 ### Preview
 
-![thinking-about-cats demo](images/thinking-about-cats-demo.gif)
+![thinking-about-cats demo] (https://github.com/marleydoughty/thinking-about-cats/tree/master/images/thinking-about-cats-demo.gif)
+
 
 ### Features
 
