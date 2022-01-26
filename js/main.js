@@ -41,7 +41,6 @@ function renderImages() {
 
     var image = document.createElement('img');
     image.setAttribute('src', imageValues[i].url);
-    image.className = 'column-full';
     imageContainer.appendChild(image);
 
     var commentObj = null;
@@ -57,28 +56,28 @@ function renderImages() {
     }
     imageContainer.appendChild(commentOutput);
 
-    var commentSection = document.createElement('div');
-    commentSection.className = 'comment-section';
-    imageContainer.appendChild(commentSection);
+    var commentContainer = document.createElement('div');
+    commentContainer.className = 'comment-container';
+    imageContainer.appendChild(commentContainer);
 
-    var columnHalf = document.createElement('div');
+    var commentForm = document.createElement('div');
     if (imageValues[i].editing === true) {
-      columnHalf.className = 'comment-form';
+      commentForm.className = 'comment-form';
     } else {
-      columnHalf.className = 'comment-form hidden column-half';
+      commentForm.className = 'comment-form hidden';
     }
-    commentSection.appendChild(columnHalf);
+    commentContainer.appendChild(commentForm);
 
     var form = document.createElement('form');
     form.setAttribute('id', 'form-input');
     form.setAttribute('name', 'comment');
-    columnHalf.appendChild(form);
+    commentForm.appendChild(form);
     form.addEventListener('submit', handleSaveComment);
 
     var commentInput = document.createElement('input');
     commentInput.setAttribute('type', 'text');
     commentInput.setAttribute('placeholder', 'Add comments here');
-    commentInput.setAttribute('id', 'comment-box');
+    commentInput.setAttribute('id', 'comment-input');
     if (imageValues[i].editing === true) {
       commentOutput.className = 'hidden';
       commentInput.value = commentOutput.textContent;
@@ -102,18 +101,18 @@ function renderImages() {
     saveComment.setAttribute('id', 'save-button');
     buttonRow.appendChild(saveComment);
 
-    var commentIconContainer = document.createElement('div');
-    commentIconContainer.className = 'comment-icon';
-    commentSection.appendChild(commentIconContainer);
+    var iconsContainer = document.createElement('div');
+    iconsContainer.className = 'icons-container';
+    commentContainer.appendChild(iconsContainer);
 
     var commentIcon = document.createElement('i');
     commentIcon.className = 'far fa-comment';
-    commentIconContainer.appendChild(commentIcon);
+    iconsContainer.appendChild(commentIcon);
     commentIcon.addEventListener('click', clickedCommentIcon);
 
     var favoriteIcon = document.createElement('i');
     favoriteIcon.className = 'far fa-heart outline-heart';
-    commentIconContainer.appendChild(favoriteIcon);
+    iconsContainer.appendChild(favoriteIcon);
     favoriteIcon.addEventListener('click', handleFavoriteImage);
     for (var fi = 0; fi < data.favorites.length; fi++) {
       if (data.favorites[fi] === imageValues[i]) {
