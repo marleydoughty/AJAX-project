@@ -1,9 +1,5 @@
-/* .hidden {
+.hidden {
   display: none;
-} */
-
-.active {
-  opacity: 100%;
 }
 
 .tabs {
@@ -126,10 +122,6 @@
   color: red;
 }
 
-/* .fave-heart {
-  color: red;
-} */
-
 .fa-comment:hover {
   color: #177cff;
 }
@@ -144,6 +136,10 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.active {
+  opacity: 100%;
 }
 
 header {
