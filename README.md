@@ -1,6 +1,6 @@
 # thinking-about-cats
 
-A dynamic HTML, CSS, and JavaScript solo project that allows users to browse a gallery of cat images and gifs.
+A dynamic HTML, CSS, and JavaScript solo project for users who want to browse cat images and gifs.
 
 This project was inspired by my adoration for cats.
 
