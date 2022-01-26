@@ -2,7 +2,7 @@
 
 A dynamic HTML, CSS, and JavaScript solo project for users who want to browse cat images and gifs.
 
-This project was inspired by my adoration for cats.
+This project was inspired by the fact that cats are one of the most searched keywords on the Internet and have an estimated 65 billion pictures floating around! **Caution**: this app will boost your mood and spread joy.
 
 ### Live Demo
 
@@ -17,7 +17,7 @@ Take a look for yourself and let me know your thoughts! [https://marleydoughty.g
 
 ### Preview
 
-![thinking-about-cats demo](/images/thinking-about-cats-demo.gif)
+![thinking-about-cats demo](images/thinking-about-cats-demo.gif)
 
 ### Features
 
