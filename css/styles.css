@@ -138,6 +138,10 @@ img {
   margin-left: 10px;
 }
 
+.comment-icon .fa-comment {
+  margin-left: 10px;
+}
+
 .fa-heart:hover {
   color: red;
 }
