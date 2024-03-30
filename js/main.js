@@ -52,7 +52,7 @@ function renderImages() {
         <div class="comment-container">
           <div class="${editingClass}">
             <form id="form-input" name="comment">
-              <input type="text" placeholder="Add comments here" id="comment-input" value="${commentObj ? commentObj.textValue : ''}">
+              <input type="text" placeholder="Add a comment..." id="comment-input" value="${commentObj ? commentObj.textValue : ''}">
               <div class="row sb">
                 <input type="button" value="Delete" id="delete-button">
                 <input type="submit" value="Save" id="save-button">
@@ -79,7 +79,6 @@ function renderImages() {
     imageContainer.querySelector('#delete-button').addEventListener('click', handleDeleteComment);
   });
 }
-
 fetchImages();
 
 function findImageIndex(target) {
