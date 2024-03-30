@@ -193,18 +193,10 @@ async function fetchFacts() {
 fetchFacts();
 
 function renderFacts(event) {
-  var header = document.createElement('h1');
-  header.textContent = 'Did you know?';
-  $factsSection.appendChild(header);
+  const headerHTML = '<h1>Cat Facts</h1>';
+  const factsHTML = factValues.map(fact => `<li><span class="fa-li"><i class="fas fa-cat"></i></span>${fact.text}</li>`).join('');
 
-  var factsContainer = document.createElement('ul');
-  $factsSection.appendChild(factsContainer);
-
-  for (var i = 0; i < factValues.length; i++) {
-    var fact = document.createElement('li');
-    fact.textContent = factValues[i].text;
-    factsContainer.appendChild(fact);
-  }
+  $factsSection.innerHTML = headerHTML + '<ul class="fa-ul">' + factsHTML + '</ul>';
 }
 
 $topNavFavorites.addEventListener('click', viewFavorites);
