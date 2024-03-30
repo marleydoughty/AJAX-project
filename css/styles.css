@@ -88,14 +88,13 @@
 
 #save-button {
   border: none;
-  color: #177cff;
+  color: green;
   cursor: pointer;
   background-color: white;
 }
 
 #delete-button {
   border: none;
-  color: red;
   cursor: pointer;
   background-color: white;
 }
@@ -121,11 +120,6 @@
   padding-left: 7px;
   cursor: pointer;
   font-size: 24px;
-}
-
-.icons-container .fa-heart,
-.icons-container .fa-comment {
-  margin-left: 10px;
 }
 
 .fave-heart,
