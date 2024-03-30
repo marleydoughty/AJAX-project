@@ -17,6 +17,7 @@ const bottomFact = document.querySelector('.bottom-nav-item.fact');
 const $loadingScreen = document.querySelector('.loading-screen');
 let imageValues = [];
 let factValues = [];
+let currentView = 'all';
 
 async function fetchImages() {
   try {
@@ -36,7 +37,8 @@ async function fetchImages() {
 
 function renderImages() {
   $allImages.innerHTML = '';
-  imageValues.forEach(imageValue => {
+  const imagesToRender = currentView === 'favorites' ? data.favorites : imageValues;
+  imagesToRender.forEach(imageValue => {
     const imageContainer = document.createElement('div');
     imageContainer.className = 'image-container';
     imageContainer.setAttribute('data-id', imageValue.id);
@@ -113,20 +115,15 @@ function renderImages() {
 fetchImages();
 
 function findImageIndex(target) {
-  var closestImageContainer = target.closest('.image-container');
-  for (var i = 0; i < $allImages.children.length; i++) {
-    if ($allImages.children[i] === closestImageContainer) {
-      return i;
-    }
-  }
-  return undefined;
+  const closestImageContainer = target.closest('.image-container');
+  return Array.from($allImages.children).indexOf(closestImageContainer);
 }
 
 function clickedCommentIcon(event) {
   if (event.target && event.target.tagName === 'I') {
-    var imageIndex = findImageIndex(event.target);
+    const imageIndex = findImageIndex(event.target);
     if (imageIndex !== undefined) {
-      imageValues[imageIndex].editing = true;
+      imageValues[imageIndex].editing = !imageValues[imageIndex].editing;
       renderImages();
     }
   }
@@ -134,47 +131,48 @@ function clickedCommentIcon(event) {
 
 function handleSaveComment(event) {
   event.preventDefault();
-  var textValue = event.target.querySelector('input').value;
-  var closestImageContainer = event.target.closest('.image-container');
-  var imageId = closestImageContainer.getAttribute('data-id');
+  const textValue = event.target.querySelector('input').value;
+  const closestImageContainer = event.target.closest('.image-container');
+  const imageId = closestImageContainer.getAttribute('data-id');
 
-  var imageIndex = findImageIndex(event.target);
+  const imageIndex = findImageIndex(event.target);
   if (imageIndex !== undefined) {
     imageValues[imageIndex].editing = false;
+    data.comments.push({
+      textValue,
+      imageId
+    });
   }
-  data.comments.push({
-    textValue,
-    imageId
-  });
   renderImages();
 }
 
 function handleDeleteComment(event) {
-  for (var i = 0; i < imageValues.length; i++) {
-    if (imageValues[i].editing === true) {
-      for (var ci = 0; ci < data.comments.length; ci++) {
-        if (data.comments[ci].imageId === imageValues[i].id) {
-          data.comments.splice(ci, 1);
-          imageValues[i].editing = false;
-          renderImages();
-        }
+  imageValues.forEach((image, index) => {
+    if (image.editing) {
+      const commentIndex = data.comments.findIndex(comment => comment.imageId === image.id);
+      if (commentIndex !== -1) {
+        data.comments.splice(commentIndex, 1);
       }
+      imageValues[index].editing = false;
     }
-  }
+  });
+  renderImages();
 }
 
 function handleFavoriteImage(event) {
-  var imageIndex = findImageIndex(event.target);
-  if (!data.favorites.includes(imageValues[imageIndex])) {
-    data.favorites.push(
-      imageValues[imageIndex]
-    );
+  const imageIndex = findImageIndex(event.target);
+  const image = imageValues[imageIndex];
+  if (data.favorites.includes(image)) {
+    data.favorites = data.favorites.filter(favImage => favImage !== image);
+  } else {
+    data.favorites.push(image);
   }
   renderImages();
 }
 
 function viewFavorites(event) {
-  imageValues = data.favorites;
+  currentView = 'favorites';
+  imageValues = [...data.favorites];
   $allImages.className = 'images';
   $factsSection.className = 'facts hidden';
   topImg.className = 'top-nav-item img';
@@ -198,6 +196,7 @@ function viewFacts(event) {
 }
 
 function viewImages(event) {
+  currentView = 'all';
   imageValues = [];
   $allImages.className = 'images';
   $factsSection.className = 'facts hidden';
