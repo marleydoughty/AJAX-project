@@ -194,7 +194,7 @@ fetchFacts();
 
 function renderFacts(event) {
   const headerHTML = '<h1>Cat Facts</h1>';
-  const factsHTML = factValues.map(fact => `<li><span class="fa-li"><i class="fas fa-cat"></i></span>${fact.text}</li>`).join('');
+  const factsHTML = factValues.map(fact => `<li><span class="fa-li"><i class="fas fa-paw"></i></span>${fact.text}</li>`).join('');
 
   $factsSection.innerHTML = headerHTML + '<ul class="fa-ul">' + factsHTML + '</ul>';
 }
