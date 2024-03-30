@@ -1,22 +1,22 @@
 /* global data */
 /* exported data */
-var $allImages = document.querySelector('.images');
-var $topNavFavorites = document.querySelector('.favorites-link');
-var $topNavFacts = document.querySelector('.facts-link');
-var $topNavImages = document.querySelector('.images-link');
-var $bottomNavImages = document.querySelector('.bottom-nav-item.img');
-var $bottomNavFacts = document.querySelector('.bottom-nav-item.fact');
-var $bottomNavFavorites = document.querySelector('.bottom-nav-item.fave');
-var $factsSection = document.querySelector('.facts');
-var topImg = document.querySelector('.top-nav-item.img');
-var topFav = document.querySelector('.top-nav-item.fave');
-var topFact = document.querySelector('.top-nav-item.fact');
-var bottomImg = document.querySelector('.bottom-nav-item.img');
-var bottomFav = document.querySelector('.bottom-nav-item.fave');
-var bottomFact = document.querySelector('.bottom-nav-item.fact');
-var $loadingScreen = document.querySelector('.loading-screen');
-var imageValues = [];
-var factValues = [];
+const $allImages = document.querySelector('.images');
+const $topNavFavorites = document.querySelector('.favorites-link');
+const $topNavFacts = document.querySelector('.facts-link');
+const $topNavImages = document.querySelector('.images-link');
+const $bottomNavImages = document.querySelector('.bottom-nav-item.img');
+const $bottomNavFacts = document.querySelector('.bottom-nav-item.fact');
+const $bottomNavFavorites = document.querySelector('.bottom-nav-item.fave');
+const $factsSection = document.querySelector('.facts');
+const topImg = document.querySelector('.top-nav-item.img');
+const topFav = document.querySelector('.top-nav-item.fave');
+const topFact = document.querySelector('.top-nav-item.fact');
+const bottomImg = document.querySelector('.bottom-nav-item.img');
+const bottomFav = document.querySelector('.bottom-nav-item.fave');
+const bottomFact = document.querySelector('.bottom-nav-item.fact');
+const $loadingScreen = document.querySelector('.loading-screen');
+let imageValues = [];
+let factValues = [];
 
 async function fetchImages() {
   try {
@@ -36,93 +36,79 @@ async function fetchImages() {
 
 function renderImages() {
   $allImages.innerHTML = '';
-  for (var i = 0; i < imageValues.length; i++) {
-    var imageContainer = document.createElement('div');
+  imageValues.forEach(imageValue => {
+    const imageContainer = document.createElement('div');
     imageContainer.className = 'image-container';
-    imageContainer.setAttribute('data-id', imageValues[i].id);
+    imageContainer.setAttribute('data-id', imageValue.id);
     $allImages.appendChild(imageContainer);
 
-    var image = document.createElement('img');
-    image.setAttribute('src', imageValues[i].url);
+    const image = document.createElement('img');
+    image.setAttribute('src', imageValue.url);
     imageContainer.appendChild(image);
 
-    var commentObj = null;
-    for (var ci = 0; ci < data.comments.length; ci++) {
-      if (data.comments[ci].imageId === imageValues[i].id) {
-        commentObj = data.comments[ci];
-      }
-    }
-    var commentOutput = document.createElement('p');
+    const commentObj = data.comments.find(comment => comment.imageId === imageValue.id);
+    const commentOutput = document.createElement('p');
     if (commentObj) {
       commentOutput.textContent = commentObj.textValue;
-      imageContainer.className = 'row image-container sb';
+      imageContainer.classList.add('row', 'sb');
     }
     imageContainer.appendChild(commentOutput);
 
-    var commentContainer = document.createElement('div');
+    const commentContainer = document.createElement('div');
     commentContainer.className = 'comment-container';
     imageContainer.appendChild(commentContainer);
 
-    var commentForm = document.createElement('div');
-    if (imageValues[i].editing === true) {
-      commentForm.className = 'comment-form';
-    } else {
-      commentForm.className = 'comment-form hidden';
-    }
+    const commentForm = document.createElement('div');
+    commentForm.className = imageValue.editing ? 'comment-form' : 'comment-form hidden';
     commentContainer.appendChild(commentForm);
 
-    var form = document.createElement('form');
+    const form = document.createElement('form');
     form.setAttribute('id', 'form-input');
     form.setAttribute('name', 'comment');
-    commentForm.appendChild(form);
     form.addEventListener('submit', handleSaveComment);
+    commentForm.appendChild(form);
 
-    var commentInput = document.createElement('input');
-    commentInput.setAttribute('type', 'text');
-    commentInput.setAttribute('placeholder', 'Add comments here');
-    commentInput.setAttribute('id', 'comment-input');
-    if (imageValues[i].editing === true) {
-      commentOutput.className = 'hidden';
+    const commentInput = document.createElement('input');
+    commentInput.type = 'text';
+    commentInput.placeholder = 'Add comments here';
+    commentInput.id = 'comment-input';
+    if (imageValue.editing) {
+      commentOutput.classList.add('hidden');
       commentInput.value = commentOutput.textContent;
     }
     form.appendChild(commentInput);
 
-    var buttonRow = document.createElement('div');
+    const buttonRow = document.createElement('div');
     buttonRow.className = 'row sb';
     form.appendChild(buttonRow);
 
-    var deleteComment = document.createElement('input');
-    deleteComment.setAttribute('type', 'button');
-    deleteComment.setAttribute('value', 'Delete');
-    deleteComment.setAttribute('id', 'delete-button');
-    buttonRow.appendChild(deleteComment);
+    const deleteComment = document.createElement('input');
+    deleteComment.type = 'button';
+    deleteComment.value = 'Delete';
+    deleteComment.id = 'delete-button';
     deleteComment.addEventListener('click', handleDeleteComment);
+    buttonRow.appendChild(deleteComment);
 
-    var saveComment = document.createElement('input');
-    saveComment.setAttribute('type', 'submit');
-    saveComment.setAttribute('value', 'Save');
-    saveComment.setAttribute('id', 'save-button');
+    const saveComment = document.createElement('input');
+    saveComment.type = 'submit';
+    saveComment.value = 'Save';
+    saveComment.id = 'save-button';
     buttonRow.appendChild(saveComment);
 
-    var iconsContainer = document.createElement('div');
+    const iconsContainer = document.createElement('div');
     iconsContainer.className = 'icons-container';
     commentContainer.appendChild(iconsContainer);
 
-    var commentIcon = document.createElement('i');
+    const commentIcon = document.createElement('i');
     commentIcon.className = 'far fa-comment';
-    iconsContainer.appendChild(commentIcon);
     commentIcon.addEventListener('click', clickedCommentIcon);
+    iconsContainer.appendChild(commentIcon);
 
-    var favoriteIcon = document.createElement('i');
-    favoriteIcon.className = 'far fa-heart outline-heart';
-    iconsContainer.appendChild(favoriteIcon);
+    const favoriteIcon = document.createElement('i');
+    favoriteIcon.className = data.favorites.includes(imageValue) ? 'fas fa-heart fave-heart' : 'far fa-heart outline-heart';
     favoriteIcon.addEventListener('click', handleFavoriteImage);
-    for (var fi = 0; fi < data.favorites.length; fi++) {
-      if (data.favorites[fi] === imageValues[i]) {
-        favoriteIcon.className = 'fas fa-heart fave-heart';
-      }
-    }
-  }
+    iconsContainer.appendChild(favoriteIcon);
+  });
 }
 fetchImages();
 
