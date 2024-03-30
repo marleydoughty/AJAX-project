@@ -18,17 +18,20 @@ var $loadingScreen = document.querySelector('.loading-screen');
 var imageValues = [];
 var factValues = [];
 
-function fetchImages() {
-  var xhr = new XMLHttpRequest();
-  $loadingScreen.classList.remove('hidden');
-  xhr.open('GET', 'https://api.thecatapi.com/v1/images/search?limit=100&page=0');
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    imageValues = xhr.response;
-    $loadingScreen.classList.add('hidden');
+async function fetchImages() {
+  try {
+    $loadingScreen.classList.remove('hidden');
+    const response = await fetch('https://api.thecatapi.com/v1/images/search?limit=100&page=0');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    imageValues = await response.json();
     renderImages();
-  });
-  xhr.send();
+  } catch (error) {
+    console.error('Error fetching images:', error);
+  } finally {
+    $loadingScreen.classList.add('hidden');
+  }
 }
 
 function renderImages() {
@@ -222,15 +225,17 @@ function viewImages(event) {
   fetchImages();
 }
 
-function fetchFacts(event) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://cat-fact.herokuapp.com/facts');
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    factValues = xhr.response;
+async function fetchFacts() {
+  try {
+    const response = await fetch('https://cat-fact.herokuapp.com/facts');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    factValues = await response.json();
     renderFacts();
-  });
-  xhr.send();
+  } catch (error) {
+    console.error('Error fetching facts:', error);
+  }
 }
 fetchFacts();
 
