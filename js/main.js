@@ -1,143 +1,96 @@
 /* global data */
 /* exported data */
-var $allImages = document.querySelector('.images');
-var $topNavFavorites = document.querySelector('.favorites-link');
-var $topNavFacts = document.querySelector('.facts-link');
-var $topNavImages = document.querySelector('.images-link');
-var $bottomNavImages = document.querySelector('.bottom-nav-item.img');
-var $bottomNavFacts = document.querySelector('.bottom-nav-item.fact');
-var $bottomNavFavorites = document.querySelector('.bottom-nav-item.fave');
-var $factsSection = document.querySelector('.facts');
-var topImg = document.querySelector('.top-nav-item.img');
-var topFav = document.querySelector('.top-nav-item.fave');
-var topFact = document.querySelector('.top-nav-item.fact');
-var bottomImg = document.querySelector('.bottom-nav-item.img');
-var bottomFav = document.querySelector('.bottom-nav-item.fave');
-var bottomFact = document.querySelector('.bottom-nav-item.fact');
-var $loadingScreen = document.querySelector('.loading-screen');
-var imageValues = [];
-var factValues = [];
+const $allImages = document.querySelector('.images');
+const $topNavFavorites = document.querySelector('.favorites-link');
+const $topNavFacts = document.querySelector('.facts-link');
+const $topNavImages = document.querySelector('.images-link');
+const $bottomNavImages = document.querySelector('.bottom-nav-item.img');
+const $bottomNavFacts = document.querySelector('.bottom-nav-item.fact');
+const $bottomNavFavorites = document.querySelector('.bottom-nav-item.fave');
+const $factsSection = document.querySelector('.facts');
+const topImg = document.querySelector('.top-nav-item.img');
+const topFav = document.querySelector('.top-nav-item.fave');
+const topFact = document.querySelector('.top-nav-item.fact');
+const bottomImg = document.querySelector('.bottom-nav-item.img');
+const bottomFav = document.querySelector('.bottom-nav-item.fave');
+const bottomFact = document.querySelector('.bottom-nav-item.fact');
+const $loadingScreen = document.querySelector('.loading-screen');
+let imageValues = [];
+let factValues = [];
+let currentView = 'all';
 
-function fetchImages() {
-  var xhr = new XMLHttpRequest();
-  $loadingScreen.classList.remove('hidden');
-  xhr.open('GET', 'https://api.thecatapi.com/v1/images/search?limit=100&page=0');
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    imageValues = xhr.response;
-    $loadingScreen.classList.add('hidden');
+async function fetchImages() {
+  try {
+    $loadingScreen.classList.remove('hidden');
+    const response = await fetch('https://api.thecatapi.com/v1/images/search?limit=100&page=0');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    imageValues = await response.json();
     renderImages();
-  });
-  xhr.send();
+  } catch (error) {
+    console.error('Error fetching images:', error);
+  } finally {
+    $loadingScreen.classList.add('hidden');
+  }
 }
 
 function renderImages() {
-  $allImages.innerHTML = '';
-  for (var i = 0; i < imageValues.length; i++) {
-    var imageContainer = document.createElement('div');
-    imageContainer.className = 'image-container';
-    imageContainer.setAttribute('data-id', imageValues[i].id);
-    $allImages.appendChild(imageContainer);
+  const imagesToRender = currentView === 'favorites' ? data.favorites : imageValues;
+  const imagesHTML = imagesToRender.map(imageValue => {
+    const commentObj = data.comments.find(comment => comment.imageId === imageValue.id);
+    const isFavorite = data.favorites.includes(imageValue);
+    const commentHTML = commentObj ? `<p>${commentObj.textValue}</p>` : '';
+    const editingClass = imageValue.editing ? 'comment-form' : 'comment-form hidden';
+    const favoriteClass = isFavorite ? 'fas fa-heart fave-heart' : 'far fa-heart outline-heart';
 
-    var image = document.createElement('img');
-    image.setAttribute('src', imageValues[i].url);
-    imageContainer.appendChild(image);
+    return `
+    <div class="frame">
+      <div class="image-container" data-id="${imageValue.id}">
+        <img src="${imageValue.url}">
+        ${commentHTML}
+        <div class="comment-container">
+          <div class="${editingClass}">
+            <form id="form-input" name="comment">
+              <input type="text" placeholder="Add a comment..." id="comment-input" value="${commentObj ? commentObj.textValue : ''}">
+              <div class="row sb">
+                <input type="button" value="Delete" id="delete-button">
+                <input type="submit" value="Save" id="save-button">
+              </div>
+            </form>
+          </div>
+          <div class="icons-container">
+            <i class="far fa-comment"></i>
+            <i class="${favoriteClass}"></i>
+          </div>
+        </div>
+      </div>
+      </div>
+    `;
+  }).join('');
 
-    var commentObj = null;
-    for (var ci = 0; ci < data.comments.length; ci++) {
-      if (data.comments[ci].imageId === imageValues[i].id) {
-        commentObj = data.comments[ci];
-      }
-    }
-    var commentOutput = document.createElement('p');
-    if (commentObj) {
-      commentOutput.textContent = commentObj.textValue;
-      imageContainer.className = 'row image-container sb';
-    }
-    imageContainer.appendChild(commentOutput);
+  $allImages.innerHTML = imagesHTML;
 
-    var commentContainer = document.createElement('div');
-    commentContainer.className = 'comment-container';
-    imageContainer.appendChild(commentContainer);
-
-    var commentForm = document.createElement('div');
-    if (imageValues[i].editing === true) {
-      commentForm.className = 'comment-form';
-    } else {
-      commentForm.className = 'comment-form hidden';
-    }
-    commentContainer.appendChild(commentForm);
-
-    var form = document.createElement('form');
-    form.setAttribute('id', 'form-input');
-    form.setAttribute('name', 'comment');
-    commentForm.appendChild(form);
-    form.addEventListener('submit', handleSaveComment);
-
-    var commentInput = document.createElement('input');
-    commentInput.setAttribute('type', 'text');
-    commentInput.setAttribute('placeholder', 'Add comments here');
-    commentInput.setAttribute('id', 'comment-input');
-    if (imageValues[i].editing === true) {
-      commentOutput.className = 'hidden';
-      commentInput.value = commentOutput.textContent;
-    }
-    form.appendChild(commentInput);
-
-    var buttonRow = document.createElement('div');
-    buttonRow.className = 'row sb';
-    form.appendChild(buttonRow);
-
-    var deleteComment = document.createElement('input');
-    deleteComment.setAttribute('type', 'button');
-    deleteComment.setAttribute('value', 'Delete');
-    deleteComment.setAttribute('id', 'delete-button');
-    buttonRow.appendChild(deleteComment);
-    deleteComment.addEventListener('click', handleDeleteComment);
-
-    var saveComment = document.createElement('input');
-    saveComment.setAttribute('type', 'submit');
-    saveComment.setAttribute('value', 'Save');
-    saveComment.setAttribute('id', 'save-button');
-    buttonRow.appendChild(saveComment);
-
-    var iconsContainer = document.createElement('div');
-    iconsContainer.className = 'icons-container';
-    commentContainer.appendChild(iconsContainer);
-
-    var commentIcon = document.createElement('i');
-    commentIcon.className = 'far fa-comment';
-    iconsContainer.appendChild(commentIcon);
-    commentIcon.addEventListener('click', clickedCommentIcon);
-
-    var favoriteIcon = document.createElement('i');
-    favoriteIcon.className = 'far fa-heart outline-heart';
-    iconsContainer.appendChild(favoriteIcon);
-    favoriteIcon.addEventListener('click', handleFavoriteImage);
-    for (var fi = 0; fi < data.favorites.length; fi++) {
-      if (data.favorites[fi] === imageValues[i]) {
-        favoriteIcon.className = 'fas fa-heart fave-heart';
-      }
-    }
-  }
+  imagesToRender.forEach(imageValue => {
+    const imageContainer = $allImages.querySelector(`.image-container[data-id="${imageValue.id}"]`);
+    imageContainer.querySelector('.fa-comment').addEventListener('click', clickedCommentIcon);
+    imageContainer.querySelector('.fa-heart').addEventListener('click', handleFavoriteImage);
+    imageContainer.querySelector('form').addEventListener('submit', handleSaveComment);
+    imageContainer.querySelector('#delete-button').addEventListener('click', handleDeleteComment);
+  });
 }
 fetchImages();
 
 function findImageIndex(target) {
-  var closestImageContainer = target.closest('.image-container');
-  for (var i = 0; i < $allImages.children.length; i++) {
-    if ($allImages.children[i] === closestImageContainer) {
-      return i;
-    }
-  }
-  return undefined;
+  const closestImageContainer = target.closest('.frame');
+  return Array.from($allImages.children).indexOf(closestImageContainer);
 }
 
 function clickedCommentIcon(event) {
   if (event.target && event.target.tagName === 'I') {
-    var imageIndex = findImageIndex(event.target);
+    const imageIndex = findImageIndex(event.target);
     if (imageIndex !== undefined) {
-      imageValues[imageIndex].editing = true;
+      imageValues[imageIndex].editing = !imageValues[imageIndex].editing;
       renderImages();
     }
   }
@@ -145,47 +98,48 @@ function clickedCommentIcon(event) {
 
 function handleSaveComment(event) {
   event.preventDefault();
-  var textValue = event.target.querySelector('input').value;
-  var closestImageContainer = event.target.closest('.image-container');
-  var imageId = closestImageContainer.getAttribute('data-id');
+  const textValue = event.target.querySelector('input').value;
+  const closestImageContainer = event.target.closest('.image-container');
+  const imageId = closestImageContainer.getAttribute('data-id');
 
-  var imageIndex = findImageIndex(event.target);
+  const imageIndex = findImageIndex(event.target);
   if (imageIndex !== undefined) {
     imageValues[imageIndex].editing = false;
+    data.comments.push({
+      textValue,
+      imageId
+    });
   }
-  data.comments.push({
-    textValue,
-    imageId
-  });
   renderImages();
 }
 
 function handleDeleteComment(event) {
-  for (var i = 0; i < imageValues.length; i++) {
-    if (imageValues[i].editing === true) {
-      for (var ci = 0; ci < data.comments.length; ci++) {
-        if (data.comments[ci].imageId === imageValues[i].id) {
-          data.comments.splice(ci, 1);
-          imageValues[i].editing = false;
-          renderImages();
-        }
+  imageValues.forEach((image, index) => {
+    if (image.editing) {
+      const commentIndex = data.comments.findIndex(comment => comment.imageId === image.id);
+      if (commentIndex !== -1) {
+        data.comments.splice(commentIndex, 1);
       }
+      imageValues[index].editing = false;
     }
-  }
+  });
+  renderImages();
 }
 
 function handleFavoriteImage(event) {
-  var imageIndex = findImageIndex(event.target);
-  if (!data.favorites.includes(imageValues[imageIndex])) {
-    data.favorites.push(
-      imageValues[imageIndex]
-    );
+  const imageIndex = findImageIndex(event.target);
+  const image = imageValues[imageIndex];
+  if (data.favorites.includes(image)) {
+    data.favorites = data.favorites.filter(favImage => favImage !== image);
+  } else {
+    data.favorites.push(image);
   }
   renderImages();
 }
 
 function viewFavorites(event) {
-  imageValues = data.favorites;
+  currentView = 'favorites';
+  imageValues = [...data.favorites];
   $allImages.className = 'images';
   $factsSection.className = 'facts hidden';
   topImg.className = 'top-nav-item img';
@@ -209,6 +163,7 @@ function viewFacts(event) {
 }
 
 function viewImages(event) {
+  currentView = 'all';
   imageValues = [];
   $allImages.className = 'images';
   $factsSection.className = 'facts hidden';
@@ -222,31 +177,25 @@ function viewImages(event) {
   fetchImages();
 }
 
-function fetchFacts(event) {
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://cat-fact.herokuapp.com/facts');
-  xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    factValues = xhr.response;
+async function fetchFacts() {
+  try {
+    const response = await fetch('https://cat-fact.herokuapp.com/facts');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    factValues = await response.json();
     renderFacts();
-  });
-  xhr.send();
+  } catch (error) {
+    console.error('Error fetching facts:', error);
+  }
 }
 fetchFacts();
 
 function renderFacts(event) {
-  var header = document.createElement('h1');
-  header.textContent = 'Did you know?';
-  $factsSection.appendChild(header);
+  const headerHTML = '<h1>Cat Facts</h1>';
+  const factsHTML = factValues.map(fact => `<li><span class="fa-li"><i class="fas fa-paw"></i></span>${fact.text}</li>`).join('');
 
-  var factsContainer = document.createElement('ul');
-  $factsSection.appendChild(factsContainer);
-
-  for (var i = 0; i < factValues.length; i++) {
-    var fact = document.createElement('li');
-    fact.textContent = factValues[i].text;
-    factsContainer.appendChild(fact);
-  }
+  $factsSection.innerHTML = headerHTML + '<ul class="fa-ul">' + factsHTML + '</ul>';
 }
 
 $topNavFavorites.addEventListener('click', viewFavorites);
