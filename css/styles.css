@@ -75,6 +75,13 @@
   width: 300px;
 }
 
+.frame {
+  background-color: white;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 40%);
+  padding: 24px;
+  margin: 16px;
+}
+
 .facts {
   padding-top: 100px;
 }

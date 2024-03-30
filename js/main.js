@@ -36,86 +36,54 @@ async function fetchImages() {
 }
 
 function renderImages() {
-  $allImages.innerHTML = '';
   const imagesToRender = currentView === 'favorites' ? data.favorites : imageValues;
-  imagesToRender.forEach(imageValue => {
-    const imageContainer = document.createElement('div');
-    imageContainer.className = 'image-container';
-    imageContainer.setAttribute('data-id', imageValue.id);
-    $allImages.appendChild(imageContainer);
-
-    const image = document.createElement('img');
-    image.setAttribute('src', imageValue.url);
-    imageContainer.appendChild(image);
-
+  const imagesHTML = imagesToRender.map(imageValue => {
     const commentObj = data.comments.find(comment => comment.imageId === imageValue.id);
-    const commentOutput = document.createElement('p');
-    if (commentObj) {
-      commentOutput.textContent = commentObj.textValue;
-      imageContainer.classList.add('row', 'sb');
-    }
-    imageContainer.appendChild(commentOutput);
+    const isFavorite = data.favorites.includes(imageValue);
+    const commentHTML = commentObj ? `<p>${commentObj.textValue}</p>` : '';
+    const editingClass = imageValue.editing ? 'comment-form' : 'comment-form hidden';
+    const favoriteClass = isFavorite ? 'fas fa-heart fave-heart' : 'far fa-heart outline-heart';
 
-    const commentContainer = document.createElement('div');
-    commentContainer.className = 'comment-container';
-    imageContainer.appendChild(commentContainer);
+    return `
+    <div class="frame">
+      <div class="image-container" data-id="${imageValue.id}">
+        <img src="${imageValue.url}">
+        ${commentHTML}
+        <div class="comment-container">
+          <div class="${editingClass}">
+            <form id="form-input" name="comment">
+              <input type="text" placeholder="Add comments here" id="comment-input" value="${commentObj ? commentObj.textValue : ''}">
+              <div class="row sb">
+                <input type="button" value="Delete" id="delete-button">
+                <input type="submit" value="Save" id="save-button">
+              </div>
+            </form>
+          </div>
+          <div class="icons-container">
+            <i class="far fa-comment"></i>
+            <i class="${favoriteClass}"></i>
+          </div>
+        </div>
+      </div>
+      </div>
+    `;
+  }).join('');
 
-    const commentForm = document.createElement('div');
-    commentForm.className = imageValue.editing ? 'comment-form' : 'comment-form hidden';
-    commentContainer.appendChild(commentForm);
+  $allImages.innerHTML = imagesHTML;
 
-    const form = document.createElement('form');
-    form.setAttribute('id', 'form-input');
-    form.setAttribute('name', 'comment');
-    form.addEventListener('submit', handleSaveComment);
-    commentForm.appendChild(form);
-
-    const commentInput = document.createElement('input');
-    commentInput.type = 'text';
-    commentInput.placeholder = 'Add comments here';
-    commentInput.id = 'comment-input';
-    if (imageValue.editing) {
-      commentOutput.classList.add('hidden');
-      commentInput.value = commentOutput.textContent;
-    }
-    form.appendChild(commentInput);
-
-    const buttonRow = document.createElement('div');
-    buttonRow.className = 'row sb';
-    form.appendChild(buttonRow);
-
-    const deleteComment = document.createElement('input');
-    deleteComment.type = 'button';
-    deleteComment.value = 'Delete';
-    deleteComment.id = 'delete-button';
-    deleteComment.addEventListener('click', handleDeleteComment);
-    buttonRow.appendChild(deleteComment);
-
-    const saveComment = document.createElement('input');
-    saveComment.type = 'submit';
-    saveComment.value = 'Save';
-    saveComment.id = 'save-button';
-    buttonRow.appendChild(saveComment);
-
-    const iconsContainer = document.createElement('div');
-    iconsContainer.className = 'icons-container';
-    commentContainer.appendChild(iconsContainer);
-
-    const commentIcon = document.createElement('i');
-    commentIcon.className = 'far fa-comment';
-    commentIcon.addEventListener('click', clickedCommentIcon);
-    iconsContainer.appendChild(commentIcon);
-
-    const favoriteIcon = document.createElement('i');
-    favoriteIcon.className = data.favorites.includes(imageValue) ? 'fas fa-heart fave-heart' : 'far fa-heart outline-heart';
-    favoriteIcon.addEventListener('click', handleFavoriteImage);
-    iconsContainer.appendChild(favoriteIcon);
+  imagesToRender.forEach(imageValue => {
+    const imageContainer = $allImages.querySelector(`.image-container[data-id="${imageValue.id}"]`);
+    imageContainer.querySelector('.fa-comment').addEventListener('click', clickedCommentIcon);
+    imageContainer.querySelector('.fa-heart').addEventListener('click', handleFavoriteImage);
+    imageContainer.querySelector('form').addEventListener('submit', handleSaveComment);
+    imageContainer.querySelector('#delete-button').addEventListener('click', handleDeleteComment);
   });
 }
+
 fetchImages();
 
 function findImageIndex(target) {
-  const closestImageContainer = target.closest('.image-container');
+  const closestImageContainer = target.closest('.frame');
   return Array.from($allImages.children).indexOf(closestImageContainer);
 }
 
