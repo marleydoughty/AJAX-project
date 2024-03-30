@@ -4,13 +4,14 @@
 
 .tabs {
   text-decoration: none;
-  color: white;
+  color: black;
   font-size: 22px;
 }
 
 .header {
-  background-color: #562a81;
-  color: white;
+  background-color: white;
+  border: 1px solid black;
+  color: black;
   font-weight: 100;
   padding: 16px 8px;
   font-size: 22px;
@@ -35,8 +36,8 @@
 }
 
 .bottom-nav-bar {
-  background-color: #562a81;
-  color: white;
+  background-color: white;
+  color: black;
   font-weight: 100;
   padding-top: 10px;
   font-size: 22px;
@@ -88,14 +89,13 @@
 
 #save-button {
   border: none;
-  color: #177cff;
+  color: green;
   cursor: pointer;
   background-color: white;
 }
 
 #delete-button {
   border: none;
-  color: red;
   cursor: pointer;
   background-color: white;
 }
@@ -123,18 +123,10 @@
   font-size: 24px;
 }
 
-.icons-container .fa-heart,
-.icons-container .fa-comment {
-  margin-left: 10px;
-}
-
 .fave-heart,
-.outline-heart:hover {
-  color: red;
-}
-
+.outline-heart:hover,
 .fa-comment:hover {
-  color: #177cff;
+  color: #f7d4de;
 }
 
 .loading-screen {
@@ -195,6 +187,8 @@ li {
 h1 {
   text-align: center;
   font-size: 40px;
+  border-bottom: 1px solid;
+  padding-bottom: 24px;
 }
 
 img {

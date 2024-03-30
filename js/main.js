@@ -22,7 +22,9 @@ let currentView = 'all';
 async function fetchImages() {
   try {
     $loadingScreen.classList.remove('hidden');
-    const response = await fetch('https://api.thecatapi.com/v1/images/search?limit=100&page=0');
+    const response = await fetch(
+      'https://api.thecatapi.com/v1/images/search?limit=100&page=0'
+    );
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -36,15 +38,23 @@ async function fetchImages() {
 }
 
 function renderImages() {
-  const imagesToRender = currentView === 'favorites' ? data.favorites : imageValues;
-  const imagesHTML = imagesToRender.map(imageValue => {
-    const commentObj = data.comments.find(comment => comment.imageId === imageValue.id);
-    const isFavorite = data.favorites.includes(imageValue);
-    const commentHTML = commentObj ? `<p>${commentObj.textValue}</p>` : '';
-    const editingClass = imageValue.editing ? 'comment-form' : 'comment-form hidden';
-    const favoriteClass = isFavorite ? 'fas fa-heart fave-heart' : 'far fa-heart outline-heart';
+  const imagesToRender =
+    currentView === 'favorites' ? data.favorites : imageValues;
+  const imagesHTML = imagesToRender
+    .map(imageValue => {
+      const commentObj = data.comments.find(
+        comment => comment.imageId === imageValue.id
+      );
+      const isFavorite = data.favorites.includes(imageValue);
+      const commentHTML = commentObj ? `<p>${commentObj.textValue}</p>` : '';
+      const editingClass = imageValue.editing
+        ? 'comment-form'
+        : 'comment-form hidden';
+      const favoriteClass = isFavorite
+        ? 'fas fa-heart fave-heart'
+        : 'far fa-heart outline-heart';
 
-    return `
+      return `
     <div class="frame">
       <div class="image-container" data-id="${imageValue.id}">
         <img src="${imageValue.url}">
@@ -52,10 +62,16 @@ function renderImages() {
         <div class="comment-container">
           <div class="${editingClass}">
             <form id="form-input" name="comment">
-              <input type="text" placeholder="Add a comment..." id="comment-input" value="${commentObj ? commentObj.textValue : ''}">
+              <input type="text" placeholder="Add a comment..." id="comment-input" value="${
+                  commentObj ? commentObj.textValue : ''
+                }">
               <div class="row sb">
-                <input type="button" value="Delete" id="delete-button">
-                <input type="submit" value="Save" id="save-button">
+                <button type="button" id="delete-button" aria-label="Delete comment" class="icon-button">
+                  <i class="fas fa-trash-can"></i>
+                </button>
+                <button type="submit" id="save-button" aria-label="Save comment" class="icon-button">
+                  <i class="fas fa-check"></i>
+                </button>
               </div>
             </form>
           </div>
@@ -67,16 +83,27 @@ function renderImages() {
       </div>
       </div>
     `;
-  }).join('');
+    })
+    .join('');
 
   $allImages.innerHTML = imagesHTML;
 
   imagesToRender.forEach(imageValue => {
-    const imageContainer = $allImages.querySelector(`.image-container[data-id="${imageValue.id}"]`);
-    imageContainer.querySelector('.fa-comment').addEventListener('click', clickedCommentIcon);
-    imageContainer.querySelector('.fa-heart').addEventListener('click', handleFavoriteImage);
-    imageContainer.querySelector('form').addEventListener('submit', handleSaveComment);
-    imageContainer.querySelector('#delete-button').addEventListener('click', handleDeleteComment);
+    const imageContainer = $allImages.querySelector(
+      `.image-container[data-id="${imageValue.id}"]`
+    );
+    imageContainer
+      .querySelector('.fa-comment')
+      .addEventListener('click', clickedCommentIcon);
+    imageContainer
+      .querySelector('.fa-heart')
+      .addEventListener('click', handleFavoriteImage);
+    imageContainer
+      .querySelector('form')
+      .addEventListener('submit', handleSaveComment);
+    imageContainer
+      .querySelector('#delete-button')
+      .addEventListener('click', handleDeleteComment);
   });
 }
 fetchImages();
@@ -116,7 +143,9 @@ function handleSaveComment(event) {
 function handleDeleteComment(event) {
   imageValues.forEach((image, index) => {
     if (image.editing) {
-      const commentIndex = data.comments.findIndex(comment => comment.imageId === image.id);
+      const commentIndex = data.comments.findIndex(
+        comment => comment.imageId === image.id
+      );
       if (commentIndex !== -1) {
         data.comments.splice(commentIndex, 1);
       }
@@ -193,9 +222,15 @@ fetchFacts();
 
 function renderFacts(event) {
   const headerHTML = '<h1>Cat Facts</h1>';
-  const factsHTML = factValues.map(fact => `<li><span class="fa-li"><i class="fas fa-paw"></i></span>${fact.text}</li>`).join('');
+  const factsHTML = factValues
+    .map(
+      fact =>
+        `<li><span class="fa-li"><i class="fas fa-paw"></i></span>${fact.text}</li>`
+    )
+    .join('');
 
-  $factsSection.innerHTML = headerHTML + '<ul class="fa-ul">' + factsHTML + '</ul>';
+  $factsSection.innerHTML =
+    headerHTML + '<ul class="fa-ul">' + factsHTML + '</ul>';
 }
 
 $topNavFavorites.addEventListener('click', viewFavorites);
